@@ -1,0 +1,12 @@
+<icon fill>star</icon>
+<radio-group [(ngModel)]="favoriteSeason">
+    @for (season of seasons; track season) {
+    <radio-button [value]="season" >{{season}}</radio-button>
+    }
+</radio-group>
+
+<div>Your favorite season is: {{favoriteSeason}}</div>
+
+<checkbox [(ngModel)]="checked">Hello</checkbox>
+
+<div>Checked: {{checked}}</div>

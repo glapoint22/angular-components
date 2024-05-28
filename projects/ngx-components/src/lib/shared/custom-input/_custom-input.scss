@@ -1,0 +1,48 @@
+.radio-button,
+.checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    user-select: none;
+    padding: 5px;
+
+    &:hover {
+        input:not(:checked):not(:disabled)~.checkmark {
+            border-color: var(--custom-input-hover-color);
+        }
+    }
+
+
+    input {
+        appearance: none;
+        display: none;
+
+        &:disabled~.checkmark {
+            border-color: var(--custom-input-disabled-color);
+
+            &::after {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+
+
+.checkmark {
+    border: 2px solid;
+    border-color: var(--custom-input-color);
+    transition: border-color 120ms;
+    position: relative;
+    margin-right: 5px;
+
+    &:after {
+        content: "";
+        position: absolute;
+    }
+}
+
+.input-disabled {
+    cursor: default;
+    color: var(--custom-input-disabled-font-color);
+}

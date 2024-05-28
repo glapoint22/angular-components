@@ -1,0 +1,41 @@
+@use '../../shared/custom-input/custom-input';
+
+.checkbox {
+    .checkmark {
+        width: 18px;
+        height: 18px;
+    }
+
+    input {
+        ~.checkmark {
+            background-color: transparent;
+            transition: background-color 120ms;
+        }
+
+        &:not(:disabled):checked~.checkmark {
+            &.primary-checkbox-color,
+            &.secondary-checkbox-color {
+                background-color: var(--checkbox-selected-color);
+            }
+
+            border-color: transparent;
+
+
+            &:after {
+                transform: rotate(45deg) scale(1);
+            }
+        }
+    }
+
+    .primary-checkbox-color.checkmark::after,
+    .secondary-checkbox-color.checkmark::after {
+        left: 5px;
+        top: 0px;
+        width: 3px;
+        height: 10px;
+        border: solid var(--checkbox-selected-checkmark-color);
+        border-width: 0 2px 2px 0;
+        transform: rotate(0deg) scale(0);
+        transition: transform 120ms;
+    }
+}

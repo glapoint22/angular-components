@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+a {
+    color: inherit;
+}
+
+:root {
+    --custom-input-color: #363636;
+}
+
+
+.primary-checkbox-color {
+    --checkbox-selected-checkmark-color: #0ae014;
+    --checkbox-selected-color: #0a0ddf;
+    --checkbox-disabled-label-color: rgba(233, 224, 228, .38);
+    --checkbox-label-text-color: #e9e0e4;
+}
+
+.secondary-checkbox-color {
+    --checkbox-selected-checkmark-color: #42008a;
+    --checkbox-selected-color: #d5baff;
+    --checkbox-disabled-label-color: rgba(233, 224, 228, .38);
+    --checkbox-label-text-color: #e9e0e4;
+}
