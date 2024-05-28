@@ -1,4 +1,4 @@
-<label class="checkbox" [ngClass]="{'input-disabled': disabled()}">
+<label class="checkbox custom-input-color" [ngClass]="{'input-disabled': disabled()}">
     <!-- Input -->
     <input #input type="checkbox" name="checkbox" [disabled]="disabled()" [checked]="checked()"
         (change)="onChange(input.checked)">
@@ -8,6 +8,9 @@
         'primary-checkbox-color': color() === 'primary',
         'secondary-checkbox-color': color() === 'secondary' || color() === undefined}"></span>
 
-    <!-- Content -->
-    <ng-content></ng-content>
+    <!-- Text -->
+    <span class="custom-input-text">
+        <ng-content></ng-content>
+    </span>
+    
 </label>

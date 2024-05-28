@@ -22,5 +22,5 @@ import { CheckboxComponent } from '../../../ngx-components/src/lib/components/ch
 export class AppComponent {
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
-  checked = true;
+  checked = false;
 }

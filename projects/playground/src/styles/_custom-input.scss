@@ -1,0 +1,11 @@
+@use 'sass:map';
+
+@mixin theme() {
+    .custom-input-color {
+        --custom-input-hover-color: #868686;
+        --custom-input-disabled-color: #2afa00;
+        --custom-input-disabled-text-color: #ec8804;
+        --custom-input-text-color: #494949;
+        --custom-input-unselected-color: #4e444e;
+    }
+}

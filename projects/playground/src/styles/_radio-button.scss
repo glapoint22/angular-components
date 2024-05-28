@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+@mixin theme() {
+    .primary-radio-color {
+        --radio-selected-checkmark-color: #8a3700;
+        --radio-selected-color: #ffe3ba;
+    }
+    
+    .secondary-radio-color {
+        --radio-selected-checkmark-color: #00578a;
+        --radio-selected-color: #bad8ff;
+    }
+}

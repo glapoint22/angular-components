@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+@mixin theme() {
+    .primary-checkbox-color {
+        --checkbox-selected-checkmark-color: #0ae014;
+        --checkbox-selected-color: #0a0ddf;
+    }
+    
+    .secondary-checkbox-color {
+        --checkbox-selected-checkmark-color: #42008a;
+        --checkbox-selected-color: #d5baff;
+    }
+}

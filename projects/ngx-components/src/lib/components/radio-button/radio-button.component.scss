@@ -3,21 +3,21 @@
 .radio-button {
     input:not(:disabled) {
         &:checked~.checkmark {
-            &.primary-color {
-                border-color: var(--custom-input-primary-color);
+            // &.primary-color {
+                border-color: var(--radio-selected-color);
 
                 &::after {
-                    background-color: var(--custom-input-primary-color);
+                    background-color: var(--radio-selected-checkmark-color);
                 }
-            }
+            // }
 
-            &.secondary-color {
-                border-color: var(--custom-input-secondary-color);
+            // &.secondary-color {
+            //     border-color: var(--custom-input-secondary-color);
 
-                &::after {
-                    background-color: var(--custom-input-secondary-color);
-                }
-            }
+            //     &::after {
+            //         background-color: var(--custom-input-secondary-color);
+            //     }
+            // }
 
 
             &:after {

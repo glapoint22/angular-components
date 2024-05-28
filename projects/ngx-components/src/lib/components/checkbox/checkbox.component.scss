@@ -13,13 +13,8 @@
         }
 
         &:not(:disabled):checked~.checkmark {
-            &.primary-checkbox-color,
-            &.secondary-checkbox-color {
-                background-color: var(--checkbox-selected-color);
-            }
-
+            background-color: var(--checkbox-selected-color);
             border-color: transparent;
-
 
             &:after {
                 transform: rotate(45deg) scale(1);
@@ -27,8 +22,7 @@
         }
     }
 
-    .primary-checkbox-color.checkmark::after,
-    .secondary-checkbox-color.checkmark::after {
+    .checkmark::after {
         left: 5px;
         top: 0px;
         width: 3px;

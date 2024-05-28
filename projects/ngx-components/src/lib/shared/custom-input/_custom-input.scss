@@ -31,7 +31,7 @@
 
 .checkmark {
     border: 2px solid;
-    border-color: var(--custom-input-color);
+    border-color: var(--custom-input-unselected-color);
     transition: border-color 120ms;
     position: relative;
     margin-right: 5px;
@@ -42,7 +42,11 @@
     }
 }
 
+.custom-input-text {
+    color: var(--custom-input-text-color);
+}
+
 .input-disabled {
     cursor: default;
-    color: var(--custom-input-disabled-font-color);
+    color: var(--custom-input-disabled-text-color);
 }
