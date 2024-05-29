@@ -1,13 +1,16 @@
 @use 'sass:map';
 
-@mixin theme() {
-    .primary-radio-color {
-        --radio-selected-checkmark-color: #8a3700;
-        --radio-selected-color: #ffe3ba;
+@mixin color-theme($palette, $class, $theme-type) {
+    $value: if($theme-type == 'light', 40, 80);
+
+    .#{$class} {
+        --radio-selected-checkmark-color: #{map.get($palette, $value)};
+        --radio-selected-color: #{map.get($palette, $value)};
     }
-    
-    .secondary-radio-color {
-        --radio-selected-checkmark-color: #00578a;
-        --radio-selected-color: #bad8ff;
-    }
+}
+
+
+@mixin theme($primary-palette, $secondary-palette, $theme-type) {
+    @include color-theme($primary-palette, 'primary-radio-color', $theme-type);
+    @include color-theme($secondary-palette, 'secondary-radio-color', $theme-type);
 }

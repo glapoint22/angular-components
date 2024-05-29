@@ -16,7 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   }]
 })
 export class CheckboxComponent extends CustomInput implements ControlValueAccessor {
-  
+
   writeValue(value: any): void {
     this.checked.set(value);
   }
@@ -26,9 +26,13 @@ export class CheckboxComponent extends CustomInput implements ControlValueAccess
   }
 
   registerOnTouched(fn: any): void { }
-  
+
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
+  }
+
+  protected isPrimary(): boolean {
+    return (this.color() === 'primary' || !this.color());
   }
 }

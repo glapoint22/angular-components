@@ -25,6 +25,13 @@
             }
         }
     }
+
+    &:not(.input-disabled) {
+        .custom-input-text {
+            color: var(--custom-input-text-color);
+        }
+    }
+
 }
 
 
@@ -42,9 +49,7 @@
     }
 }
 
-.custom-input-text {
-    color: var(--custom-input-text-color);
-}
+
 
 .input-disabled {
     cursor: default;

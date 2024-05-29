@@ -3,29 +3,14 @@
 .radio-button {
     input:not(:disabled) {
         &:checked~.checkmark {
-            // &.primary-color {
-                border-color: var(--radio-selected-color);
+            border-color: var(--radio-selected-color);
 
-                &::after {
-                    background-color: var(--radio-selected-checkmark-color);
-                }
-            // }
-
-            // &.secondary-color {
-            //     border-color: var(--custom-input-secondary-color);
-
-            //     &::after {
-            //         background-color: var(--custom-input-secondary-color);
-            //     }
-            // }
-
-
-            &:after {
+            &::after {
+                background-color: var(--radio-selected-checkmark-color);
                 transform: scale(1);
             }
         }
     }
-
 
     .checkmark {
         border-radius: 50%;

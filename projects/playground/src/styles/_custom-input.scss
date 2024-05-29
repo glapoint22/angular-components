@@ -1,11 +1,24 @@
 @use 'sass:map';
 
-@mixin theme() {
-    .custom-input-color {
-        --custom-input-hover-color: #868686;
-        --custom-input-disabled-color: #2afa00;
-        --custom-input-disabled-text-color: #ec8804;
-        --custom-input-text-color: #494949;
-        --custom-input-unselected-color: #4e444e;
+
+@mixin color-theme($palette, $class, $theme-type) {
+    $unselected-color: if($theme-type == 'light', 30, 80);
+    $hover-color: if($theme-type == 'light', 10, 90);
+    $disabled-color: if($theme-type == 'light', 10, 90);
+    $text-color: if($theme-type == 'light', 10, 90);
+    $disabled-text-color: if($theme-type == 'light', 10, 90);
+
+    .#{$class} {
+        --custom-input-unselected-color: #{map.get(map.get($palette, neutral-variant), $unselected-color)};
+        --custom-input-hover-color: #{map.get(map.get($palette, neutral), $hover-color)};
+        --custom-input-disabled-color: #{rgba(map.get(map.get($palette, neutral), $disabled-color), .38)};
+        --custom-input-text-color: #{map.get(map.get($palette, neutral), $text-color)};
+        --custom-input-disabled-text-color: #{rgba(map.get(map.get($palette, neutral), $disabled-text-color), .38)};
     }
+}
+
+
+@mixin theme($primary-palette, $secondary-palette, $theme-type) {
+    @include color-theme($primary-palette, 'primary-custom-input-color', $theme-type);
+    @include color-theme($secondary-palette, 'secondary-custom-input-color', $theme-type);
 }

@@ -25,4 +25,11 @@ export class RadioButtonComponent extends CustomInput {
 
     this.radioGroup.onChange(this.value());
   }
+
+
+  protected isPrimary(): boolean {
+    return (this.color() === 'primary' ||
+      (this.radioGroup.color() === 'primary' && !this.color()) ||
+      (!this.color() && !this.radioGroup.color()));
+  }
 }

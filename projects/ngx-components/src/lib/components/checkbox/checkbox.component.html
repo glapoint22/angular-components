@@ -1,16 +1,18 @@
-<label class="checkbox custom-input-color" [ngClass]="{'input-disabled': disabled()}">
+<label class="checkbox custom-input-color" [ngClass]="
+    {'input-disabled': disabled(),
+    'primary-custom-input-color': isPrimary(),
+    'secondary-custom-input-color': !isPrimary()
+    }">
     <!-- Input -->
     <input #input type="checkbox" name="checkbox" [disabled]="disabled()" [checked]="checked()"
         (change)="onChange(input.checked)">
 
     <!-- Checkmark -->
-    <span class="checkmark" [ngClass]="{
-        'primary-checkbox-color': color() === 'primary' || color() === undefined,
-        'secondary-checkbox-color': color() === 'secondary'}"></span>
+    <span class="checkmark" [ngClass]="isPrimary() ? 'primary-checkbox-color' : 'secondary-checkbox-color'"></span>
 
     <!-- Text -->
     <span class="custom-input-text">
         <ng-content></ng-content>
     </span>
-    
+
 </label>
