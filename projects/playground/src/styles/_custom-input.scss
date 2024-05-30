@@ -1,19 +1,49 @@
 @use 'sass:map';
+@use './utility';
 
 
 @mixin color-theme($palette, $class, $theme-type) {
-    $unselected-color: if($theme-type == 'light', 30, 80);
-    $hover-color: if($theme-type == 'light', 10, 90);
-    $disabled-color: if($theme-type == 'light', 10, 90);
-    $text-color: if($theme-type == 'light', 10, 90);
-    $disabled-text-color: if($theme-type == 'light', 10, 90);
-
     .#{$class} {
-        --custom-input-unselected-color: #{map.get(map.get($palette, neutral-variant), $unselected-color)};
-        --custom-input-hover-color: #{map.get(map.get($palette, neutral), $hover-color)};
-        --custom-input-disabled-color: #{rgba(map.get(map.get($palette, neutral), $disabled-color), .38)};
-        --custom-input-text-color: #{map.get(map.get($palette, neutral), $text-color)};
-        --custom-input-disabled-text-color: #{rgba(map.get(map.get($palette, neutral), $disabled-text-color), .38)};
+        --custom-input-unselected-color: #{
+            map.get(
+                map.get($palette, neutral-variant), 
+                utility.get-color-key($theme-type, 30, 80)
+            )
+        };
+
+        --custom-input-hover-color: #{
+            map.get(
+                map.get($palette, neutral),
+                utility.get-color-key($theme-type, 10, 90)
+            )
+        };
+
+        --custom-input-disabled-color: #{
+            rgba(
+                map.get(
+                    map.get($palette, neutral),
+                    utility.get-color-key($theme-type, 10, 90)
+                ),
+                .38
+            )
+        };
+
+        --custom-input-text-color: #{
+            map.get(
+                map.get($palette, neutral),
+                utility.get-color-key($theme-type, 10, 90)
+            )
+        };
+
+        --custom-input-disabled-text-color: #{
+            rgba(
+                map.get(
+                    map.get($palette, neutral),
+                    utility.get-color-key($theme-type, 10, 90)
+                ),
+                .38
+            )
+        };
     }
 }
 

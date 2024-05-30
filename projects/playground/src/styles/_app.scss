@@ -1,17 +1,33 @@
 @use 'sass:map';
+@use './utility';
 
-
-@mixin theme($palette, $theme-type) {
-    $background-color: if($theme-type == 'light', 99, 10);
-    $text-color: if($theme-type == 'light', 10, 90);
-
+@mixin app-variables($palette, $theme-type) {
     :root {
-        --app-background-color: #{map.get(map.get($palette, neutral), $background-color)};
-        --app-text-color: #{map.get(map.get($palette, neutral), $text-color)};
-    }
+        --app-background-color: #{
+            map.get(
+                map.get($palette, neutral),
+                utility.get-color-key($theme-type, 99, 10)
+            )
+        };
 
+        --app-text-color: #{
+            map.get(
+                map.get($palette, neutral),
+                utility.get-color-key($theme-type, 10, 90)
+            )
+        };
+    }
+}
+
+@mixin app-styles {
     .app-background {
         background-color: var(--app-background-color, transparent);
         color: var(--app-text-color, inherit);
     }
+}
+
+
+@mixin theme($palette, $theme-type) {
+    @include app-variables($palette, $theme-type);
+    @include app-styles;
 }

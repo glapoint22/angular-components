@@ -1,11 +1,12 @@
 @use 'sass:map';
+@use './utility';
 
 @mixin color-theme($palette, $class, $theme-type) {
-    $value: if($theme-type == 'light', 40, 80);
+    $key: utility.get-color-key($theme-type, 40, 80);
 
     .#{$class} {
-        --radio-selected-checkmark-color: #{map.get($palette, $value)};
-        --radio-selected-color: #{map.get($palette, $value)};
+        --radio-selected-checkmark-color: #{map.get($palette, $key)};
+        --radio-selected-color: #{map.get($palette, $key)};
     }
 }
 

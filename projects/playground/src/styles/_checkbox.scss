@@ -1,12 +1,21 @@
 @use 'sass:map';
+@use './utility';
 
 @mixin color-theme($palette, $class, $theme-type) {
-    $checkbox: if($theme-type == 'light', 40, 80);
-    $checkmark: if($theme-type == 'light', 100, 20);
-
     .#{$class} {
-        --checkbox-selected-color: #{map.get($palette, $checkbox)};
-        --checkbox-selected-checkmark-color: #{map.get($palette, $checkmark)};
+        --checkbox-selected-color: #{
+            map.get(
+                $palette,
+                utility.get-color-key($theme-type, 40, 80)
+            )
+        };
+
+        --checkbox-selected-checkmark-color: #{
+            map.get(
+                $palette,
+                utility.get-color-key($theme-type, 100, 20)
+            )
+        };
     }
 }
 

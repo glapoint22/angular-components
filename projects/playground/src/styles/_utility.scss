@@ -1,0 +1,8 @@
+@function get-color-key($theme-type, $key1, $key2) {
+    @if $theme-type == 'light' {
+        @return $key1;
+    }
+    @else {
+        @return $key2;
+    }
+}
