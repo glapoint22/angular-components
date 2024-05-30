@@ -1,54 +1,11 @@
-@use 'sass:map';
 @use './utility';
 
-
-@mixin color-theme($palette, $class, $theme-type) {
-    .#{$class} {
-        --custom-input-unselected-color: #{
-            map.get(
-                map.get($palette, neutral-variant), 
-                utility.get-color-key($theme-type, 30, 80)
-            )
-        };
-
-        --custom-input-hover-color: #{
-            map.get(
-                map.get($palette, neutral),
-                utility.get-color-key($theme-type, 10, 90)
-            )
-        };
-
-        --custom-input-disabled-color: #{
-            rgba(
-                map.get(
-                    map.get($palette, neutral),
-                    utility.get-color-key($theme-type, 10, 90)
-                ),
-                .38
-            )
-        };
-
-        --custom-input-text-color: #{
-            map.get(
-                map.get($palette, neutral),
-                utility.get-color-key($theme-type, 10, 90)
-            )
-        };
-
-        --custom-input-disabled-text-color: #{
-            rgba(
-                map.get(
-                    map.get($palette, neutral),
-                    utility.get-color-key($theme-type, 10, 90)
-                ),
-                .38
-            )
-        };
-    }
-}
-
-
-@mixin theme($primary-palette, $secondary-palette, $theme-type) {
-    @include color-theme($primary-palette, 'primary-custom-input-color', $theme-type);
-    @include color-theme($secondary-palette, 'secondary-custom-input-color', $theme-type);
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('custom-input', $theme-type, $palettes, (
+        'custom-input-unselected-color': (color-keys: (30, 80), color-map: neutral-variant),
+        'custom-input-hover-color': (color-keys: (10, 90), color-map: neutral),
+        'custom-input-disabled-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.38),
+        'custom-input-text-color': (color-keys: (10, 90), color-map: neutral),
+        'custom-input-disabled-text-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.38),
+    ));
 }

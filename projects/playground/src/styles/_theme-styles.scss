@@ -3,7 +3,7 @@
 @use './checkbox';
 @use './custom-input';
 @use './app';
-
+@use './icon';
 
 @mixin theme($theme) {
     $theme-type: map.get($theme, theme-type);
@@ -13,8 +13,9 @@
 
     .#{$theme-name} {
         @include app.theme($primary-palette, $theme-type);
-        @include custom-input.theme($primary-palette, $secondary-palette, $theme-type);
-        @include radio-button.theme($primary-palette, $secondary-palette, $theme-type);
-        @include checkbox.theme($primary-palette, $secondary-palette, $theme-type);
+        @include custom-input.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include radio-button.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include checkbox.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include icon.theme(($primary-palette, $secondary-palette), $theme-type);
     }
 }

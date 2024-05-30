@@ -1,4 +1,4 @@
-<span class="material-symbols-outlined" [style.font-variation-settings]="fontVariationSettings"
-    [style.fontSize.px]="fontSize()">
+<span class="material-symbols-outlined color" [style.font-variation-settings]="fontVariationSettings"
+    [style.fontSize.px]="fontSize()" [ngClass]="color() ? color() + '-icon-color' : ''">
     <ng-content />
 </span>

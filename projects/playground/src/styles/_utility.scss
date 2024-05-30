@@ -1,8 +1,32 @@
+@use 'sass:map';
+
 @function get-color-key($theme-type, $key1, $key2) {
     @if $theme-type == 'light' {
         @return $key1;
     }
     @else {
         @return $key2;
+    }
+}
+
+@mixin color-variables($component-type, $theme-type, $palettes, $properties) {
+    $index: 1;
+
+    @each $palette in $palettes {
+        $color-type: if($index == 1, 'primary', 'secondary');
+
+        .#{$color-type}-#{$component-type}-color {
+            @each $property, $config in $properties {
+                $keys: map.get($config, 'color-keys');
+                $color-key: get-color-key($theme-type, nth($keys, 1), nth($keys, 2));
+                $opacity: if(map.has-key($config, 'opacity'), map.get($config, 'opacity'), null);
+                $color-map: if(map.has-key($config, 'color-map'), map.get($palette, map.get($config, 'color-map')), $palette);
+                $color: map.get($color-map, $color-key);
+
+                --#{$property}: #{if($opacity, rgba($color, $opacity), $color)};
+            }
+        }
+
+        $index: $index + 1;
     }
 }

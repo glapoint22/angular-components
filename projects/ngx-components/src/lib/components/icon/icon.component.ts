@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Signal, booleanAttribute, computed, input } from '@angular/core';
+import { Color } from '../../models/color';
 
 @Component({
   selector: 'icon',
@@ -14,6 +15,7 @@ export class IconComponent {
   public grad = input<number>(0);
   public opsz = input<number>(24);
   public fontSize = input<number>(24);
+  public color = input<Color>();
   protected fontVariationSettings!: string;
 
   public ngOnInit(): void {

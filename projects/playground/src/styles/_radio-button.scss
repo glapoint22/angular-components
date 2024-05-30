@@ -1,17 +1,8 @@
-@use 'sass:map';
 @use './utility';
 
-@mixin color-theme($palette, $class, $theme-type) {
-    $key: utility.get-color-key($theme-type, 40, 80);
-
-    .#{$class} {
-        --radio-selected-checkmark-color: #{map.get($palette, $key)};
-        --radio-selected-color: #{map.get($palette, $key)};
-    }
-}
-
-
-@mixin theme($primary-palette, $secondary-palette, $theme-type) {
-    @include color-theme($primary-palette, 'primary-radio-color', $theme-type);
-    @include color-theme($secondary-palette, 'secondary-radio-color', $theme-type);
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('radio', $theme-type, $palettes, (
+        'radio-selected-checkmark-color': (color-keys: (40, 80)),
+        'radio-selected-color': (color-keys: (40, 80))
+    ));
 }

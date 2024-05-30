@@ -1,26 +1,8 @@
-@use 'sass:map';
 @use './utility';
 
-@mixin color-theme($palette, $class, $theme-type) {
-    .#{$class} {
-        --checkbox-selected-color: #{
-            map.get(
-                $palette,
-                utility.get-color-key($theme-type, 40, 80)
-            )
-        };
-
-        --checkbox-selected-checkmark-color: #{
-            map.get(
-                $palette,
-                utility.get-color-key($theme-type, 100, 20)
-            )
-        };
-    }
-}
-
-
-@mixin theme($primary-palette, $secondary-palette, $theme-type) {
-    @include color-theme($primary-palette, 'primary-checkbox-color', $theme-type);
-    @include color-theme($secondary-palette, 'secondary-checkbox-color', $theme-type);
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('checkbox', $theme-type, $palettes, (
+        'checkbox-selected-color': (color-keys: (40, 80)),
+        'checkbox-selected-checkmark-color': (color-keys: (100, 20))
+    ));
 }

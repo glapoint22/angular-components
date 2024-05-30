@@ -1,0 +1,5 @@
+@use './utility';
+
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('icon', $theme-type, $palettes, ('icon-color': (color-keys: (40, 80))));
+}
