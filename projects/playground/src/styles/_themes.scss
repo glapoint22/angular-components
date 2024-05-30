@@ -1,0 +1,17 @@
+@use './palettes';
+@use './theme-styles';
+
+@include theme-styles.theme((
+    theme-name: light-theme,
+    theme-type: light,
+    primary: palettes.$green-palette,
+    secondary: palettes.$magenta-palette,
+));
+
+
+@include theme-styles.theme((
+    theme-name: dark-theme,
+    theme-type: dark,
+    primary: palettes.$green-palette,
+    secondary: palettes.$magenta-palette,
+));
