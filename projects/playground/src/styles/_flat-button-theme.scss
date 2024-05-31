@@ -1,0 +1,8 @@
+@use './utility';
+
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('flat-button', $theme-type, $palettes, (
+        'flat-button-text-color': (color-keys: (100, 20)),
+        'flat-button-background-color': (color-keys: (40, 80))
+    ));
+}

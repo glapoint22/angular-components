@@ -1,9 +1,14 @@
 @use 'sass:map';
-@use './radio-button';
-@use './checkbox';
-@use './custom-input';
-@use './app';
-@use './icon';
+@use './app-theme' as app;
+@use './radio-button-theme' as radio-button;
+@use './checkbox-theme' as checkbox;
+@use './custom-input-theme' as custom-input;
+@use './icon-theme' as icon;
+@use './button-theme' as button;
+@use './flat-button-theme' as flat-button;
+@use './stroked-button-theme' as stroked-button;
+@use './raised-button-theme' as raised-button;
+@use './icon-button-theme' as icon-button;
 
 @mixin theme($theme) {
     $theme-type: map.get($theme, theme-type);
@@ -17,5 +22,10 @@
         @include radio-button.theme(($primary-palette, $secondary-palette), $theme-type);
         @include checkbox.theme(($primary-palette, $secondary-palette), $theme-type);
         @include icon.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include button.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include flat-button.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include stroked-button.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include raised-button.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include icon-button.theme(($primary-palette, $secondary-palette), $theme-type);
     }
 }

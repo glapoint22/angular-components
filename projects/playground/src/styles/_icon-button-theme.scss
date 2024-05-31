@@ -1,0 +1,8 @@
+@use './utility';
+
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('icon-button', $theme-type, $palettes, (
+        'icon-button-hover-color': (color-keys: (30, 80), color-map: neutral-variant, opacity: 0.08),
+        'icon-button-active-color': (color-keys: (30, 80), color-map: neutral-variant, opacity: 0.12)
+    ));
+}

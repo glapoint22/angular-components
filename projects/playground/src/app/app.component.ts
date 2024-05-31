@@ -4,6 +4,11 @@ import { IconComponent, RadioButtonComponent } from '../../../ngx-components/src
 import { RadioGroupComponent } from '../../../ngx-components/src/lib/components/radio-group/radio-group.component';
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from '../../../ngx-components/src/lib/components/checkbox/checkbox.component';
+import { BasicButtonDirective } from '../../../ngx-components/src/lib/components/basic-button/basic-button.directive';
+import { RaisedButtonDirective } from '../../../ngx-components/src/lib/components/raised-button/raised-button.directive';
+import { StrokedButtonDirective } from '../../../ngx-components/src/lib/components/stroked-button/stroked-button.directive';
+import { FlatButtonDirective } from '../../../ngx-components/src/lib/components/flat-button/flat-button.directive';
+import { IconButtonDirective } from '../../../ngx-components/src/lib/components/icon-button/icon-button.directive';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +19,12 @@ import { CheckboxComponent } from '../../../ngx-components/src/lib/components/ch
     RadioButtonComponent,
     RadioGroupComponent,
     FormsModule,
-    CheckboxComponent
+    CheckboxComponent,
+    BasicButtonDirective,
+    RaisedButtonDirective,
+    StrokedButtonDirective,
+    FlatButtonDirective,
+    IconButtonDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
