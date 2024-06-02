@@ -6,7 +6,15 @@
     height: 40px;
     padding: 8px;
 
-    &:hover {
-        background: red;
+    &:hover:not(:disabled):before {
+        background-color: var(--icon-button-hover-color);
+    }
+
+    &:active:not(:disabled):before {
+        background-color: var(--icon-button-active-color);
+    }
+
+    &:disabled {
+        background: none;
     }
 }

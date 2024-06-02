@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Color } from '../../models/color';
+import { ColorType } from '../../models/color';
 
 @Component({
   selector: 'radio-group',
@@ -17,7 +17,7 @@ import { Color } from '../../models/color';
 })
 export class RadioGroupComponent implements ControlValueAccessor {
   public layout = input<'horizontal' | 'vertical'>('vertical');
-  public color = input<Color>();
+  public color = input<ColorType>();
   public disabled: boolean = false;
   public name: string = this.generateName();
   public value: any;

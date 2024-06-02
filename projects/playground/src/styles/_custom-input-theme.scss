@@ -2,10 +2,9 @@
 
 @mixin theme($palettes, $theme-type) {
     @include utility.color-variables('custom-input', $theme-type, $palettes, (
-        'custom-input-unselected-color': (color-keys: (30, 80), color-map: neutral-variant),
-        'custom-input-hover-color': (color-keys: (10, 90), color-map: neutral),
-        'custom-input-disabled-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.38),
-        'custom-input-text-color': (color-keys: (10, 90), color-map: neutral),
-        'custom-input-disabled-text-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.38)
+        (variable-name: 'custom-input-unselected-color', color-keys: (light: 30, dark: 80), color-map: 'neutral-variant'),
+        (variable-name: 'custom-input-hover-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
+        (variable-name: 'custom-input-disabled-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
+        (variable-name: 'custom-input-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral')
     ));
 }

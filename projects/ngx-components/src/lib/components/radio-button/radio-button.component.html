@@ -1,8 +1,5 @@
 <!-- Label -->
-<label class="radio-button" [ngClass]="{
-    'input-disabled': disabled() || radioGroup.disabled,
-    'primary-custom-input-color': isPrimary(),
-    'secondary-custom-input-color': !isPrimary()}">
+<label class="radio-button" [ngClass]="getClassList()">
 
     <!-- Input -->
     <input #input type="radio" [disabled]="disabled() || radioGroup.disabled"
@@ -10,7 +7,7 @@
         [name]="radioGroup.name">
 
     <!-- Checkmark -->
-    <span class="checkmark" [ngClass]="isPrimary() ? 'primary-radio-color' : 'secondary-radio-color'"></span>
+    <span class="checkmark" [ngClass]="Color.getColorType(color() || radioGroup.color()) + '-radio-color'"></span>
 
     <!-- Text -->
     <span class="custom-input-text">

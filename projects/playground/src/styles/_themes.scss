@@ -4,14 +4,22 @@
 @include theme-styles.theme((
     theme-name: light-theme,
     theme-type: light,
-    primary: palettes.$green-palette,
-    secondary: palettes.$magenta-palette,
+    palettes: (
+        primary: palettes.$azure-palette,
+        secondary: palettes.$magenta-palette,
+        tertiary: palettes.$green-palette,
+        warn: palettes.$red-palette
+    )
 ));
 
 
 @include theme-styles.theme((
     theme-name: dark-theme,
     theme-type: dark,
-    primary: palettes.$green-palette,
-    secondary: palettes.$magenta-palette,
+    palettes: (
+        primary: palettes.$azure-palette,
+        secondary: palettes.$magenta-palette,
+        tertiary: palettes.$green-palette,
+        warn: palettes.$red-palette
+    )
 ));

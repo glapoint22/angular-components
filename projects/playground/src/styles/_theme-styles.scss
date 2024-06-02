@@ -5,27 +5,18 @@
 @use './custom-input-theme' as custom-input;
 @use './icon-theme' as icon;
 @use './button-theme' as button;
-@use './flat-button-theme' as flat-button;
-@use './stroked-button-theme' as stroked-button;
-@use './raised-button-theme' as raised-button;
-@use './icon-button-theme' as icon-button;
 
 @mixin theme($theme) {
-    $theme-type: map.get($theme, theme-type);
-    $primary-palette: map.get($theme, primary);
-    $secondary-palette: map.get($theme, secondary);
     $theme-name: map.get($theme, theme-name);
+    $palettes: map.get($theme, palettes);
+    $theme-type: map.get($theme, theme-type);
 
     .#{$theme-name} {
-        @include app.theme($primary-palette, $theme-type);
-        @include custom-input.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include radio-button.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include checkbox.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include icon.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include button.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include flat-button.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include stroked-button.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include raised-button.theme(($primary-palette, $secondary-palette), $theme-type);
-        @include icon-button.theme(($primary-palette, $secondary-palette), $theme-type);
+        @include app.theme(map.get($palettes, primary), $theme-type);
+        @include custom-input.theme($palettes, $theme-type);
+        @include radio-button.theme($palettes, $theme-type);
+        @include checkbox.theme($palettes, $theme-type);
+        @include icon.theme($palettes, $theme-type);
+        @include button.theme($palettes, $theme-type);
     }
 }

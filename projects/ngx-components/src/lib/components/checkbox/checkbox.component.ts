@@ -2,6 +2,7 @@ import { Component, forwardRef } from '@angular/core';
 import { CustomInput } from '../../shared/custom-input/custom-input';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Color } from '../../models/color';
 
 @Component({
   selector: 'checkbox',
@@ -16,6 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   }]
 })
 export class CheckboxComponent extends CustomInput implements ControlValueAccessor {
+  protected Color = Color;
 
   writeValue(value: any): void {
     this.checked.set(value);
@@ -32,7 +34,7 @@ export class CheckboxComponent extends CustomInput implements ControlValueAccess
     this.disabled.set(isDisabled);
   }
 
-  protected isPrimary(): boolean {
-    return (this.color() === 'primary' || !this.color());
+  protected getClassList(): string[] {
+    return [Color.getColorType(this.color()) + '-custom-input-color' + (this.disabled() ? ' input-disabled' : '')]
   }
 }

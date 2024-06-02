@@ -2,7 +2,7 @@
 
 @mixin theme($palettes, $theme-type) {
     @include utility.color-variables('checkbox', $theme-type, $palettes, (
-        'checkbox-selected-color': (color-keys: (40, 80)),
-        'checkbox-selected-checkmark-color': (color-keys: (100, 20))
+        (variable-name: 'checkbox-selected-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'checkbox-selected-checkmark-color', color-keys: (light: 100, dark: 20))
     ));
 }

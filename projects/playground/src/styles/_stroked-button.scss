@@ -1,4 +1,9 @@
 .stroked-button {
-    background-color: white;
-    border: 1px solid #74777f;
+    background-color: transparent;
+    border: 1px solid var(--stroked-button-border-color);
+
+    &:disabled {
+        border-color: var(--stroked-button-disabled-border-color);
+        background-color: transparent;
+    }
 }

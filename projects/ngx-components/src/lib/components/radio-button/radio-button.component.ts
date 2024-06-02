@@ -3,6 +3,7 @@ import { CustomInput } from '../../shared/custom-input/custom-input';
 import { CommonModule } from '@angular/common';
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Color } from '../../models/color';
 
 @Component({
   selector: 'radio-button',
@@ -19,6 +20,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class RadioButtonComponent extends CustomInput {
   protected radioGroup: RadioGroupComponent = inject(RadioGroupComponent);
   public value = input<any>();
+  protected Color = Color;
 
   protected override onChange(checked: boolean) {
     super.onChange(checked);
@@ -27,9 +29,8 @@ export class RadioButtonComponent extends CustomInput {
   }
 
 
-  protected isPrimary(): boolean {
-    return (this.color() === 'primary' ||
-      (this.radioGroup.color() === 'primary' && !this.color()) ||
-      (!this.color() && !this.radioGroup.color()));
+  protected getClassList(): string[] {
+    return [Color.getColorType(this.color() || this.radioGroup.color()) +
+      '-custom-input-color' + (this.disabled() || this.radioGroup.disabled ? ' input-disabled' : '')]
   }
 }

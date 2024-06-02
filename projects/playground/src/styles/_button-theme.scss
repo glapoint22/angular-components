@@ -2,10 +2,28 @@
 
 @mixin theme($palettes, $theme-type) {
     @include utility.color-variables('button', $theme-type, $palettes, (
-        'button-text-color': (color-keys: (40, 80)),
-        'button-hover-color': (color-keys: (40, 80), opacity: 0.08),
-        'button-active-color': (color-keys: (40, 80), opacity: 0.12),
-        'button-disabled-text-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.38),
-        'button-disabled-background-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.12)
+        // Button
+        (variable-name: 'button-text-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'button-hover-color', color-keys: (light: 40, dark: 80), opacity: 0.08),
+        (variable-name: 'button-active-color', color-keys: (light: 40, dark: 80), opacity: 0.12),
+        (variable-name: 'button-disabled-text-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.38),
+        (variable-name: 'button-disabled-background-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.12),
+
+        // Flat Button
+        (variable-name: 'flat-button-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'flat-button-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'flat-button-hover-color', color-keys: (light: 100, dark: 20), opacity: 0.08),
+        (variable-name: 'flat-button-active-color', color-keys: (light: 100, dark: 20), opacity: 0.12),
+
+        // Icon Button
+        (variable-name: 'icon-button-hover-color', color-keys: (light: 30, dark: 80), color-map: neutral-variant, opacity: 0.08),
+        (variable-name: 'icon-button-active-color', color-keys: (light: 30, dark: 80), color-map: neutral-variant, opacity: 0.12),
+
+        // Raised Button
+        (variable-name: 'raised-button-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),
+
+        // Stroked Button
+        (variable-name: 'stroked-button-border-color', color-keys: (light: 50, dark: 60), color-map: neutral-variant),
+        (variable-name: 'stroked-button-disabled-border-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.12)
     ));
 }
