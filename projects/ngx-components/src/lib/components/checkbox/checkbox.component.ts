@@ -33,8 +33,4 @@ export class CheckboxComponent extends CustomInput implements ControlValueAccess
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
-
-  protected getClassList(): string[] {
-    return [Color.getColorType(this.color()) + '-custom-input-color' + (this.disabled() ? ' input-disabled' : '')]
-  }
 }

@@ -1,4 +1,8 @@
 .basic-button {
     background: none;
     padding: 12px 8px;
+
+    &[disabled] {
+        background: none;
+    }
 }

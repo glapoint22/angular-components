@@ -11,6 +11,14 @@
     position: relative;
     color: var(--button-text-color);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: inherit;
+    user-select: none;
+    overflow: visible;
+    vertical-align: middle;
 
     &::before {
         content: "";
@@ -22,17 +30,18 @@
         border-radius: 9999px;
     }
 
-    &:hover:not(:disabled):before {
+    &:hover:not([disabled]):before {
         background-color: var(--button-hover-color);
     }
 
-    &:active:not(:disabled)::before {
+    &:active:not([disabled])::before {
         background-color: var(--button-active-color);
     }
 
-    &:disabled {
+    &[disabled] {
         background: var(--button-disabled-background-color);
         color: var(--button-disabled-text-color);
         cursor: default;
+        pointer-events: none;
     }
 }

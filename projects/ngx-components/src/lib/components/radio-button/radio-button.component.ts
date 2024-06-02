@@ -27,10 +27,4 @@ export class RadioButtonComponent extends CustomInput {
 
     this.radioGroup.onChange(this.value());
   }
-
-
-  protected getClassList(): string[] {
-    return [Color.getColorType(this.color() || this.radioGroup.color()) +
-      '-custom-input-color' + (this.disabled() || this.radioGroup.disabled ? ' input-disabled' : '')]
-  }
 }

@@ -1,13 +1,12 @@
 @use 'sass:map';
 
-@function get-color-key($theme-type, $key1, $key2) {
-    @if $theme-type =='light' {
-        @return $key1;
-    }
+@function get-color($palette, $theme-type, $config) {
+    $color-key: map.get($config, 'color-keys', $theme-type);
+    $opacity: if(map.has-key($config, 'opacity'), map.get($config, 'opacity'), null);
+    $color-map: if(map.has-key($config, 'color-map'), map.get($palette, map.get($config, 'color-map')), $palette);
+    $color: map.get($color-map, $color-key);
 
-    @else {
-        @return $key2;
-    }
+    @return if($opacity, rgba($color, $opacity), $color);
 }
 
 
@@ -20,12 +19,8 @@
         .#{$palette-key}-#{$component}-color {
             @each $config in $configs {
                 $variable-name: map.get($config, 'variable-name');
-                $color-key: map.get($config, 'color-keys', $theme-type);
-                $opacity: if(map.has-key($config, 'opacity'), map.get($config, 'opacity'), null);
-                $color-map: if(map.has-key($config, 'color-map'), map.get($palette, map.get($config, 'color-map')), $palette);
-                $color: map.get($color-map, $color-key);
 
-                --#{$variable-name}: #{if($opacity, rgba($color, $opacity), $color)};
+                --#{$variable-name}: #{get-color($palette, $theme-type, $config)};
             }
         }
     }

@@ -1,8 +1,0 @@
-@use './utility';
-
-@mixin theme($palettes, $theme-type) {
-    @include utility.color-variables('stroked-button', $theme-type, $palettes, (
-        'stroked-button-border-color': (color-keys: (50, 60), color-map: neutral-variant),
-        'stroked-button-disabled-border-color': (color-keys: (10, 90), color-map: neutral, opacity: 0.12)
-    ));
-}

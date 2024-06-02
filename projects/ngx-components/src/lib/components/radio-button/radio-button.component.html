@@ -1,5 +1,6 @@
 <!-- Label -->
-<label class="radio-button" [ngClass]="getClassList()">
+<label class="radio-button" [ngClass]="Color.getColorClass(color() || radioGroup.color(), 'custom-input')"
+    [attr.disabled]="disabled() || radioGroup.disabled">
 
     <!-- Input -->
     <input #input type="radio" [disabled]="disabled() || radioGroup.disabled"
@@ -7,7 +8,7 @@
         [name]="radioGroup.name">
 
     <!-- Checkmark -->
-    <span class="checkmark" [ngClass]="Color.getColorType(color() || radioGroup.color()) + '-radio-color'"></span>
+    <span class="checkmark" [ngClass]="Color.getColorClass(color() || radioGroup.color(), 'radio')"></span>
 
     <!-- Text -->
     <span class="custom-input-text">

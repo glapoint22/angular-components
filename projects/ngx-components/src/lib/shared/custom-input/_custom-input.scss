@@ -26,12 +26,16 @@
         }
     }
 
-    &:not(.input-disabled) {
+    &:not([disabled=true]) {
         .custom-input-text {
             color: var(--custom-input-text-color);
         }
     }
 
+    &[disabled=true] {
+        cursor: default;
+        color: var(--custom-input-disabled-color);
+    }
 }
 
 
@@ -47,11 +51,4 @@
         content: "";
         position: absolute;
     }
-}
-
-
-
-.input-disabled {
-    cursor: default;
-    color: var(--custom-input-disabled-color);
 }

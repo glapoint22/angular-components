@@ -1,10 +1,12 @@
-<label class="checkbox custom-input-color" [ngClass]="getClassList()">
+<label class="checkbox custom-input-color" [ngClass]="Color.getColorClass(color(), 'custom-input')"
+    [attr.disabled]="disabled()">
+    
     <!-- Input -->
     <input #input type="checkbox" name="checkbox" [disabled]="disabled()" [checked]="checked()"
         (change)="onChange(input.checked)">
 
     <!-- Checkmark -->
-    <span class="checkmark" [ngClass]="Color.getColorType(color()) + '-checkbox-color'"></span>
+    <span class="checkmark" [ngClass]="Color.getColorClass(color(), 'checkbox')"></span>
 
     <!-- Text -->
     <span class="custom-input-text">

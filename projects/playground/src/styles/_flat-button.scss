@@ -2,11 +2,11 @@
     background-color: var(--flat-button-background-color);
     color: var(--flat-button-text-color);
 
-    &:hover:not(:disabled):before {
+    &:hover:not([disabled]):before {
         background-color: var(--flat-button-hover-color);
     }
 
-    &:active:not(:disabled):before {
+    &:active:not([disabled]):before {
         background-color: var(--flat-button-active-color);
     }
 }
