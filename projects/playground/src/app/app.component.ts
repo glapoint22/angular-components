@@ -10,6 +10,8 @@ import { StrokedButtonDirective } from '../../../ngx-components/src/lib/componen
 import { FlatButtonDirective } from '../../../ngx-components/src/lib/components/flat-button/flat-button.directive';
 import { IconButtonDirective } from '../../../ngx-components/src/lib/components/icon-button/icon-button.directive';
 import { DividerComponent } from '../../../ngx-components/src/lib/components/divider/divider.component';
+import { FormFieldComponent } from '../../../ngx-components/src/lib/components/form-field/form-field.component';
+import { InputFieldDirective } from '../../../ngx-components/src/lib/components/input-field/input-field.directive';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +28,9 @@ import { DividerComponent } from '../../../ngx-components/src/lib/components/div
     StrokedButtonDirective,
     FlatButtonDirective,
     IconButtonDirective,
-    DividerComponent
+    DividerComponent,
+    FormFieldComponent,
+    InputFieldDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

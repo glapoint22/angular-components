@@ -1,0 +1,7 @@
+
+<div style="font-size: 16px; padding: 5px;">First Name</div>
+<div class="form-field" (click)="onClick()" [ngClass]="{'form-field-focus': hasFocus }"
+    [class]="Color.getColorClass(color(), 'form-field')">
+    <ng-content />
+</div>
+<div style="font-size: 12px; padding: 5px;">Hint</div>

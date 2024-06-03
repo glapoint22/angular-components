@@ -1,0 +1,12 @@
+.form-field {
+    display: inline-flex;
+    border: 1px solid;
+    border-color: var(--form-field-border-color);
+    border-radius: 4px;
+    padding: 8px 4px;
+    background-color: var(--form-field-background-color);
+}
+
+.form-field-focus {
+    border-color: var(--form-field-focus-border-color);
+}

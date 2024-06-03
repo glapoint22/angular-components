@@ -6,6 +6,7 @@
 @use './icon-theme' as icon;
 @use './button-theme' as button;
 @use './divider-theme' as divider;
+@use './form-field-theme' as form-field;
 
 @mixin theme($theme) {
     $theme-name: map.get($theme, theme-name);
@@ -20,5 +21,6 @@
         @include icon.theme($palettes, $theme-type);
         @include button.theme($palettes, $theme-type);
         @include divider.theme(map.get($palettes, primary), $theme-type);
+        @include form-field.theme($palettes, $theme-type);
     }
 }
