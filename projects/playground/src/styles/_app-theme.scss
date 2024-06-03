@@ -3,9 +3,6 @@
 
 
 @mixin theme($palette, $theme-type) {
-    $background-color: utility.get-color($palette, $theme-type, (color-keys: (light: 99, dark: 10), color-map: neutral));
-    $text-color: utility.get-color($palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral));
-
-    background-color: $background-color;
-    color: $text-color;
+    --background-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 99, dark: 10), color-map: neutral))};
+    --text-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral))};
 }

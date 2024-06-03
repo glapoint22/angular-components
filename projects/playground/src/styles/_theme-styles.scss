@@ -5,6 +5,7 @@
 @use './custom-input-theme' as custom-input;
 @use './icon-theme' as icon;
 @use './button-theme' as button;
+@use './divider-theme' as divider;
 
 @mixin theme($theme) {
     $theme-name: map.get($theme, theme-name);
@@ -18,5 +19,6 @@
         @include checkbox.theme($palettes, $theme-type);
         @include icon.theme($palettes, $theme-type);
         @include button.theme($palettes, $theme-type);
+        @include divider.theme(map.get($palettes, primary), $theme-type);
     }
 }

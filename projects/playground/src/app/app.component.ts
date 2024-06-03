@@ -9,6 +9,7 @@ import { RaisedButtonDirective } from '../../../ngx-components/src/lib/component
 import { StrokedButtonDirective } from '../../../ngx-components/src/lib/components/stroked-button/stroked-button.directive';
 import { FlatButtonDirective } from '../../../ngx-components/src/lib/components/flat-button/flat-button.directive';
 import { IconButtonDirective } from '../../../ngx-components/src/lib/components/icon-button/icon-button.directive';
+import { DividerComponent } from '../../../ngx-components/src/lib/components/divider/divider.component';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ import { IconButtonDirective } from '../../../ngx-components/src/lib/components/
     RaisedButtonDirective,
     StrokedButtonDirective,
     FlatButtonDirective,
-    IconButtonDirective
+    IconButtonDirective,
+    DividerComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

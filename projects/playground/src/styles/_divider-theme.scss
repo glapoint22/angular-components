@@ -1,0 +1,5 @@
+@use './utility';
+
+@mixin theme($palette, $theme-type) {
+    --divider-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 80, dark: 30), color-map: neutral-variant))};
+}
