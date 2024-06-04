@@ -1,7 +1,41 @@
+<div class="form-field">
+    <div class="form-field-flex" (click)="onClick()" [ngClass]="{'form-field-focus': hasFocus }"
+        [class]="Color.getColorClass(color(), 'form-field')">
 
-<div style="font-size: 16px; padding: 5px;">First Name</div>
-<div class="form-field" (click)="onClick()" [ngClass]="{'form-field-focus': hasFocus }"
-    [class]="Color.getColorClass(color(), 'form-field')">
-    <ng-content />
+        <!-- Notch -->
+        <div class="notch-containers">
+            <div class="left-notch-container"></div>
+
+            <div class="center-notch-container" [ngClass]="{'center-notch-container-top': !formFieldLabel()}">
+                <div class="form-field-label-container">
+                    <ng-content select="form-field-label"></ng-content>
+                </div>
+            </div>
+
+            <div class="right-notch-container"></div>
+        </div>
+
+
+        <!-- Input -->
+        <div class="input-container">
+            <ng-content select="[inputField]"></ng-content>
+        </div>
+
+        
+        <!-- Icon -->
+        @if(icon()) {
+        <div class="icon-container">
+            <ng-content select="icon"></ng-content>
+        </div>
+        }
+
+    </div>
+
+    <!-- Hint -->
+    @if (formFieldHint()) {
+    <div class="hint-container">
+        <ng-content select="form-field-hint"></ng-content>
+    </div>
+    }
+
 </div>
-<div style="font-size: 12px; padding: 5px;">Hint</div>

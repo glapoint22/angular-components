@@ -6,6 +6,8 @@
         (variable-name: 'form-field-focus-border-color', color-keys: (light: 40, dark: 80)),
         (variable-name: 'form-field-input-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
         (variable-name: 'form-field-caret-color', color-keys: (light: 40, dark: 80)),
-        (variable-name: 'form-field-background-color', color-keys: (light: 98, dark: 20), color-map: 'neutral-variant')
+        (variable-name: 'form-field-background-color', color-keys: (light: 98, dark: 20), color-map: 'neutral-variant'),
+        (variable-name: 'form-field-label-color', color-keys: (light: 30, dark: 80), color-map: 'neutral-variant'),
+        (variable-name: 'form-field-focus-label-color', color-keys: (light: 40, dark: 80))
     ));
 }
