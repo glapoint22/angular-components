@@ -14,6 +14,8 @@ import { FormFieldComponent } from '../../../ngx-components/src/lib/components/f
 import { InputFieldDirective } from '../../../ngx-components/src/lib/components/input-field/input-field.directive';
 import { FormFieldLabelComponent } from '../../../ngx-components/src/lib/components/form-field-label/form-field-label.component';
 import { FormFieldHintComponent } from '../../../ngx-components/src/lib/components/form-field-hint/form-field-hint.component';
+import { SuffixDirective } from '../../../ngx-components/src/lib/components/suffix/suffix.directive';
+import { PrefixDirective } from '../../../ngx-components/src/lib/components/prefix/prefix.directive';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +36,9 @@ import { FormFieldHintComponent } from '../../../ngx-components/src/lib/componen
     FormFieldComponent,
     InputFieldDirective,
     FormFieldLabelComponent,
-    FormFieldHintComponent
+    FormFieldHintComponent,
+    SuffixDirective,
+    PrefixDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

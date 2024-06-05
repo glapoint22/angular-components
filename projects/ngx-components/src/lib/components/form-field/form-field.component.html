@@ -4,38 +4,39 @@
 
         <!-- Notch -->
         <div class="notch-containers">
+            <!-- Left Container -->
             <div class="left-notch-container"></div>
 
+            <!-- Center Container -->
             <div class="center-notch-container" [ngClass]="{'center-notch-container-top': !formFieldLabel()}">
                 <div class="form-field-label-container">
                     <ng-content select="form-field-label"></ng-content>
                 </div>
             </div>
 
+            <!-- Right Container -->
             <div class="right-notch-container"></div>
         </div>
 
+        <!-- prefix -->
+        @if(prefix()) {
+        <ng-content select="[prefix]"></ng-content>
+        }
+
 
         <!-- Input -->
-        <div class="input-container">
-            <ng-content select="[inputField]"></ng-content>
-        </div>
+        <ng-content select="[inputField]"></ng-content>
 
-        
-        <!-- Icon -->
-        @if(icon()) {
-        <div class="icon-container">
-            <ng-content select="icon"></ng-content>
-        </div>
+
+        <!-- Suffix -->
+        @if(suffix()) {
+        <ng-content select="[suffix]"></ng-content>
         }
 
     </div>
 
     <!-- Hint -->
     @if (formFieldHint()) {
-    <div class="hint-container">
-        <ng-content select="form-field-hint"></ng-content>
-    </div>
+    <ng-content select="form-field-hint"></ng-content>
     }
-
 </div>

@@ -17,6 +17,7 @@
     flex-direction: column;
 }
 
+
 .form-field-flex {
     display: inline-flex;
     width: 100%;
@@ -24,7 +25,6 @@
     padding: 12px 10px;
     align-items: center;
     max-height: 45px;
-
 }
 
 .notch-containers {
@@ -87,18 +87,4 @@
     position: relative;
     top: -5px;
     color: var(--form-field-label-color);
-}
-
-.hint-container {
-    font-size: 12px;
-    margin: 4px 12px;
-}
-
-.input-container {
-    z-index: 1;
-}
-
-.icon-container {
-    z-index: 1;
-    margin: 0 5px;
 }
