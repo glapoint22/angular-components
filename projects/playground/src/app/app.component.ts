@@ -49,7 +49,7 @@ export class AppComponent {
 
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
-  checked = false;
+  checked = true;
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'light-theme');

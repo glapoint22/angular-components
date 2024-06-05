@@ -1,0 +1,103 @@
+.radio-button,
+.checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    user-select: none;
+
+    &:hover {
+        input:is([type="checkbox"], [type="radio"]):not(:checked):not(:disabled):not(:focus) {
+
+            &~.checkmark {
+                border-color: var(--custom-input-hover-color);
+            }
+
+            &~.custom-input-background::before {
+                background-color: var(--custom-input-hover-background-color);
+            }
+        }
+    }
+
+    &:active {
+        input:is([type="checkbox"], [type="radio"]):not(:checked):not(:disabled):not(:focus) {
+            &~.custom-input-background::before {
+                background-color: var(--custom-input-unselected-active-color);
+            }
+        }
+
+
+        input:is([type="checkbox"], [type="radio"]):not(:disabled) {
+            &~.custom-input-background::before {
+                background-color: var(--custom-input-selected-active-color);
+            }
+        }
+    }
+
+
+    input:is([type="checkbox"], [type="radio"]) {
+        appearance: none;
+        margin: 0;
+        padding: 0;
+
+        &:disabled~.checkmark {
+            border-color: var(--custom-input-disabled-color);
+
+            &::after {
+                background-color: transparent;
+            }
+        }
+    }
+
+    &:not([disabled=true]) {
+        .custom-input-text {
+            color: var(--custom-input-text-color);
+        }
+    }
+
+    &[disabled=true] {
+        cursor: default;
+        color: var(--custom-input-disabled-color);
+    }
+}
+
+
+
+.checkmark {
+    border: 2px solid;
+    border-color: var(--custom-input-unselected-color);
+    transition: border-color 120ms;
+    position: relative;
+    margin-right: 12px;
+
+    &:after {
+        content: "";
+        position: absolute;
+    }
+}
+
+
+
+.custom-input-background::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    pointer-events: none;
+
+}
+
+.custom-input-unselected-focus {
+    border-color: var(--custom-input-background-focus-color);
+
+    &::before {
+        background-color: var(--custom-input-unselected-focus-color);
+    }
+
+}
+
+.custom-input-selected-focus::before {
+    background-color: var(--custom-input-selected-focus-color);
+}

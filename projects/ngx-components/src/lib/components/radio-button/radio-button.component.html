@@ -5,10 +5,11 @@
     <!-- Input -->
     <input #input type="radio" [disabled]="disabled() || radioGroup.disabled"
         [checked]="checked() || radioGroup.value === value()" (change)="onChange(input.checked)"
-        [name]="radioGroup.name">
+        [name]="radioGroup.name" (focus)="hasFocus = true" (blur)="hasFocus = false">
 
     <!-- Checkmark -->
-    <span class="checkmark" [ngClass]="Color.getColorClass(color() || radioGroup.color(), 'radio')"></span>
+    <span class="checkmark custom-input-background" [class]="Color.getColorClass(color() || radioGroup.color(), 'radio')"
+        [ngClass]="{'custom-input-unselected-focus': hasFocus && !checked(), 'custom-input-selected-focus': hasFocus && checked()}"></span>
 
     <!-- Text -->
     <span class="custom-input-text">

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, contentChildren, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ColorType } from '../../models/color';
+import { RadioButtonComponent } from '../radio-button/radio-button.component';
 
 @Component({
   selector: 'radio-group',
@@ -21,17 +22,19 @@ export class RadioGroupComponent implements ControlValueAccessor {
   public disabled: boolean = false;
   public name: string = this.generateName();
   public value: any;
+  private radioButtons = contentChildren(RadioButtonComponent);
+  public onChanges!: (value: any) => void;
 
-  public onChange(value: any): void { 
-    this.value = value;
-  }
 
   public writeValue(value: any): void {
+    const radioButton = this.radioButtons().find(x => x.value() === value);
+
     this.value = value;
+    radioButton?.checked.set(true);
   }
 
   public registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onChanges = fn;
   }
 
   public registerOnTouched(fn: any): void { }

@@ -5,6 +5,12 @@
         (variable-name: 'custom-input-unselected-color', color-keys: (light: 30, dark: 80), color-map: 'neutral-variant'),
         (variable-name: 'custom-input-hover-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
         (variable-name: 'custom-input-disabled-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
-        (variable-name: 'custom-input-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral')
+        (variable-name: 'custom-input-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
+        (variable-name: 'custom-input-unselected-focus-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.12),
+        (variable-name: 'custom-input-selected-focus-color', color-keys: (light: 40, dark: 80), opacity: 0.12),
+        (variable-name: 'custom-input-hover-background-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.04),
+        (variable-name: 'custom-input-background-focus-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
+        (variable-name: 'custom-input-unselected-active-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.2),
+        (variable-name: 'custom-input-selected-active-color', color-keys: (light: 40, dark: 80), opacity: 0.2)
     ));
 }

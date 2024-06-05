@@ -1,5 +1,3 @@
-@use '../../shared/custom-input/custom-input';
-
 .radio-button {
     input:not(:disabled) {
         &:checked~.checkmark {
