@@ -16,6 +16,7 @@ import { FormFieldLabelComponent } from '../../../ngx-components/src/lib/compone
 import { FormFieldHintComponent } from '../../../ngx-components/src/lib/components/form-field-hint/form-field-hint.component';
 import { SuffixDirective } from '../../../ngx-components/src/lib/components/suffix/suffix.directive';
 import { PrefixDirective } from '../../../ngx-components/src/lib/components/prefix/prefix.directive';
+import { CalendarComponent } from '../../../ngx-components/src/lib/components/date-picker/calendar/calendar.component';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +39,8 @@ import { PrefixDirective } from '../../../ngx-components/src/lib/components/pref
     FormFieldLabelComponent,
     FormFieldHintComponent,
     SuffixDirective,
-    PrefixDirective
+    PrefixDirective,
+    CalendarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
