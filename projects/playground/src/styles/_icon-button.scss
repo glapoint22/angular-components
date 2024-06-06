@@ -2,9 +2,13 @@
     background: none;
     min-width: initial;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
     padding: 8px;
+    
+    .material-symbols-outlined {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     &:hover:not([disabled]):before {
         background-color: var(--icon-button-hover-color);
@@ -12,6 +16,10 @@
 
     &:active:not([disabled]):before {
         background-color: var(--icon-button-active-color);
+    }
+
+    &:focus-visible:not([disabled]):before {
+        background-color: var(--icon-button-focus-color);
     }
 
     &[disabled] {

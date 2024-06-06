@@ -9,4 +9,8 @@
     &:active:not([disabled]):before {
         background-color: var(--flat-button-active-color);
     }
+
+    &:focus-visible:not([disabled]):before {
+        background-color: var(--flat-button-focus-color);
+    }
 }

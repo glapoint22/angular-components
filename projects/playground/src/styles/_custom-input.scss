@@ -6,7 +6,7 @@
     user-select: none;
 
     &:hover {
-        input:is([type="checkbox"], [type="radio"]):not(:checked):not(:disabled):not(:focus) {
+        input:not(:checked):not(:disabled):not(:focus) {
 
             &~.checkmark {
                 border-color: var(--custom-input-hover-color);
@@ -19,22 +19,21 @@
     }
 
     &:active {
-        input:is([type="checkbox"], [type="radio"]):not(:checked):not(:disabled):not(:focus) {
-            &~.custom-input-background::before {
-                background-color: var(--custom-input-unselected-active-color);
-            }
-        }
-
-
-        input:is([type="checkbox"], [type="radio"]):not(:disabled) {
+        input:not(:disabled) {
             &~.custom-input-background::before {
                 background-color: var(--custom-input-selected-active-color);
+            }
+
+            &:not(:checked):not(:focus) {
+                &~.custom-input-background::before {
+                    background-color: var(--custom-input-unselected-active-color);
+                }
             }
         }
     }
 
 
-    input:is([type="checkbox"], [type="radio"]) {
+    input {
         appearance: none;
         margin: 0;
         padding: 0;
