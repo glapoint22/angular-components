@@ -1,64 +1,149 @@
-<!-- <div class="calendar-base"> -->
-    
+<div class="calendar-day-grid">
+    <div>Su</div>
+    <div>Mo</div>
+    <div>Tu</div>
+    <div>We</div>
+    <div>Th</div>
+    <div>Fr</div>
+    <div>Sa</div>
+</div>
 
-    <div class="calendar-day-display">
-        <div class="calendar-grid calendar-grid-header">
-            <div>Su</div>
-            <div>Mo</div>
-            <div>Tu</div>
-            <div>We</div>
-            <div>Th</div>
-            <div>Fr</div>
-            <div>Sa</div>
-        </div>
 
-        <div class="calendar-grid">
-            <div class="calendar-day calendar-disabled-day">30</div>
-            <div class=" calendar-day calendar-disabled-day">31</div>
-            <div class="calendar-day">1</div>
-            <div class="calendar-day">2</div>
-            <div class="calendar-day">3</div>
-            <div class="calendar-day">4</div>
-            <div class="calendar-day">5</div>
-            <div class="calendar-day selected-calendar-day">
-                <div style="z-index: 10;">6</div>
-            </div>
-            <div class="calendar-day">7</div>
-            <div class="calendar-day">8</div>
-            <div class="calendar-day">9</div>
-            <div class="calendar-day">10</div>
-            <div class="calendar-day">11</div>
-            <div class="calendar-day">12</div>
-            <div class="calendar-day">13</div>
-            <div class="calendar-day">14</div>
-            <div class="calendar-day">15</div>
-            <div class="calendar-day">16</div>
-            <div class="calendar-day">17</div>
-            <div class="calendar-day">18</div>
-            <div class="calendar-day">19</div>
-            <div class="calendar-day">20</div>
-            <div class="calendar-day">21</div>
-            <div class="calendar-day current-calendar-day">
-                <div style="z-index: 10;">22</div>
-            </div>
-            <div class="calendar-day">23</div>
-            <div class="calendar-day">24</div>
-            <div class="calendar-day">25</div>
-            <div class="calendar-day">26</div>
-            <div class="calendar-day">27</div>
-            <div class="calendar-day">28</div>
-            <div class="calendar-day">29</div>
-            <div class="calendar-day">30</div>
-            <div class="calendar-day calendar-disabled-day">1</div>
-            <div class="calendar-day calendar-disabled-day">2</div>
-            <div class="calendar-day calendar-disabled-day">3</div>
-            <div class="calendar-day calendar-disabled-day">4</div>
-            <div class="calendar-day calendar-disabled-day">5</div>
-            <div class="calendar-day calendar-disabled-day">6</div>
-            <div class="calendar-day calendar-disabled-day">7</div>
-            <div class="calendar-day calendar-disabled-day">8</div>
-            <div class="calendar-day calendar-disabled-day">9</div>
-            <div class="calendar-day calendar-disabled-day">10</div>
-        </div>
+<div class="calendar-grid">
+    @for (calendarDay of calendarDays; track $index) {
+    <div class="calendar-grid-item" [ngClass]="{
+                'disabled-calendar-grid-item': !calendarDay.isCurrentMonth, 
+                'current-calendar-grid-item': calendarDay.isCurrentDay, 
+                'selected-calendar-grid-item': calendarDay.isSelectedDate
+            }" (click)="onCalendarDayClick(calendarDay.date)">
+        <div class="calendar-grid-item-text">{{calendarDay.day}}</div>
     </div>
-<!-- </div> -->
+    }
+
+    <!-- <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">30</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">31</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">1</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">2</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">3</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">4</div>
+    </div>
+    <div class="calendar-grid-item selected-calendar-grid-item">
+        <div class="calendar-grid-item-text">5</div>
+    </div>
+    <div class="calendar-grid-item current-calendar-grid-item">
+        <div class="calendar-grid-item-text">6</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">7</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">8</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">9</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">10</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">11</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">12</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">13</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">14</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">15</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">16</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">17</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">18</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">19</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">20</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">21</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">22</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">23</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">24</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">25</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">26</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">27</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">28</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">29</div>
+    </div>
+    <div class="calendar-grid-item">
+        <div class="calendar-grid-item-text">30</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">1</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">2</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">3</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">4</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">5</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">6</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">7</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">8</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">9</div>
+    </div>
+    <div class="calendar-grid-item disabled-calendar-grid-item">
+        <div class="calendar-grid-item-text">10</div>
+    </div> -->
+</div>

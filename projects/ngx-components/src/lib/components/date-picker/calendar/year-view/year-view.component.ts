@@ -8,7 +8,7 @@ import { IconComponent } from '../../../icon/icon.component';
   standalone: true,
   imports: [IconButtonDirective, IconComponent],
   templateUrl: './year-view.component.html',
-  styleUrl: './year-view.component.scss'
+  styleUrls: ['../calendar-grid.scss', './year-view.component.scss']
 })
 export class YearViewComponent {
 

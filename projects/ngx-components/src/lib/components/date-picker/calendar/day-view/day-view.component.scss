@@ -1,119 +1,19 @@
-@mixin calendar-variables($base) {
-    $padding: calc($base / 31);
-    $cell-size: calc($base / 7.75);
-    $hover-circle-size: calc($base / 9);
-
-    .calendar-base {
-        width: $base;
-    }
-
-    .calendar-day-display {
-        padding: $padding;
-    }
-
-    .calendar-header {
-        height: $cell-size;
-    }
-
-    .calendar-grid {
-        div {
-            width: $cell-size;
-            height: $cell-size;
-        }
-    }
-
-    .calendar-day::before {
-        width: $hover-circle-size;
-        height: $hover-circle-size;
-    }
-}
-
-
-
-.calendar-base {
-    box-shadow: 3px 3px 7px 1px #8888889c;
-}
-
-.calendar-month-text {
-    font-weight: 500;
-}
-
-.calendar-day-display {
-    background: #f9f9f9;
-}
-
-.calendar-header {
-    width: 100%;
-    background: #005cbb;
-    display: flex;
-    justify-content: space-around;
+.calendar-day-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
     align-items: center;
-    color: white;
+    font-weight: bold;
+    margin-bottom: 25px;
+    margin-top: 10px;
 }
 
 .calendar-grid {
-    display: grid;
     grid-template-columns: repeat(7, 1fr);
-
-    div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    height: 249px;
 }
 
-.calendar-grid-header {
-    font-weight: bold;
-}
-
-
-.calendar-day {
-    cursor: pointer;
-    position: relative;
-
-    &::before {
-        content: '';
-        position: absolute;
-        border-radius: 50%;
-    }
-
-    &:hover:not(.calendar-disabled-day):not(.selected-calendar-day):before {
-        background: rgba(99, 99, 99, 0.226);
-    }
-}
-
-.calendar-disabled-day {
-    cursor: default;
-    color: #ccc;
-}
-
-.current-calendar-day::before {
-    border: 1px solid #005cbb;
-    border-radius: 50%;
-}
-
-
-.selected-calendar-day {
-    color: white;
-
-    &::before {
-        background: #005cbb;
-        border-radius: 50%;
-    }
-}
-
-
-@include calendar-variables(310px);
-
-
-@media (max-width: 320px) {
-    @include calendar-variables(260px);
-}
-
-@media (max-width: 280px) {
-    @include calendar-variables(220px);
-}
-
-@media (max-width: 240px) {
-    @include calendar-variables(180px);
+.calendar-grid-item::before {
+    width: 30px;
+    height: 30px;
 }

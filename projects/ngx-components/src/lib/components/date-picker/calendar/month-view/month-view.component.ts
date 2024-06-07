@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './month-view.component.html',
-  styleUrl: './month-view.component.scss'
+  styleUrls: ['../calendar-grid.scss', './month-view.component.scss']
 })
 export class MonthViewComponent {
 
