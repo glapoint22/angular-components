@@ -1,31 +1,44 @@
 <div class="calendar-base">
     <div class="calendar-header">
         <div style="display: flex; align-items: center;">
-            <icon>arrow_left</icon>
-            <div class="calendar-month-text">Sep</div>
-            <icon>arrow_right</icon>
+            <icon (click)="updateMonth(-1)">arrow_left</icon>
+            <div (click)="changeView(CalendarView.Month)"  class="calendar-month-text">{{ date() | date: 'MMM' }}</div>
+            <icon (click)="updateMonth(1)">arrow_right</icon>
         </div>
 
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center;" (click)="updateDateToToday()">
             <icon [fontSize]="20" [opsz]="20">calendar_month</icon>
             <div class="calendar-month-text" style="margin-left: 5px;">Today</div>
         </div>
-        
+
 
         <div style="display: flex; align-items: center;">
-            <icon>arrow_left</icon>
-            <div class="calendar-month-text">2024</div>
-            <icon>arrow_right</icon>
+            <icon (click)="updateYear(-1)">arrow_left</icon>
+            <div (click)="changeView(CalendarView.Year)" class="calendar-month-text">{{ date() | date: 'yyyy' }}</div>
+            <icon (click)="updateYear(1)">arrow_right</icon>
         </div>
 
 
-        
+
     </div>
 
     <div style="padding: 10px; height: 320px;">
-        <day-view></day-view>
-        <!-- <month-view></month-view> -->
-        <!-- <year-view></year-view> -->
+
+        @switch (
+        currentCalendarView()
+        ) {
+            @case (CalendarView.Day) {
+                <day-view [date]="date()"
+                [selectedDate]="this.selectedDate()"
+                (onDateSelect)="onDateSelect($event)"></day-view>
+            }
+            @case (CalendarView.Month) {
+                <month-view></month-view>
+            }
+            @case (CalendarView.Year) {
+                <year-view></year-view>
+            }
+        }
     </div>
 
 
