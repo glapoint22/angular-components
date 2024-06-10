@@ -1,61 +1,21 @@
 <div style="display: flex; width: 100%; justify-content: space-around; align-items: center; height: 30px;">
-    <button iconButton>
+    <button iconButton (click)="previousPage()">
         <icon>chevron_left</icon>
     </button>
-    
-    <button iconButton>
+
+    <button iconButton (click)="nextPage()">
         <icon>chevron_right</icon>
     </button>
-    
+
 </div>
 
 <div class="calendar-grid">
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2016</div>
+    @for (year of years; track $index) {
+    <div class="calendar-grid-item" [ngClass]="{
+            'selected-calendar-grid-item': isSelectedYear(year),
+            'current-calendar-grid-item': isCurrentYear(year)
+        }" (click)="onYearClick(year)">
+        <div class="calendar-grid-item-text">{{year}}</div>
     </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2017</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2018</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2019</div>
-    </div>
-    <div class="calendar-grid-item selected-calendar-grid-item">
-        <div class="calendar-grid-item-text">2020</div>
-    </div>
-    <div class="calendar-grid-item current-calendar-grid-item">
-        <div class="calendar-grid-item-text">2021</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2022</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2023</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2024</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2025</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2026</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2027</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2028</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2029</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2030</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">2031</div>
-    </div>
+    }
 </div>

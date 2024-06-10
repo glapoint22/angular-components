@@ -1,4 +1,4 @@
-import { Component, Renderer2, inject } from '@angular/core';
+import { Component, Renderer2, inject, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IconComponent, RadioButtonComponent } from '../../../ngx-components/src/public-api';
 import { RadioGroupComponent } from '../../../ngx-components/src/lib/components/radio-group/radio-group.component';
@@ -52,10 +52,13 @@ export class AppComponent {
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
   checked = true;
+  calendar = viewChild(CalendarComponent);
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'light-theme');
     this.buttonLabel = 'Dark Theme';
+    
+    this.calendar()?.setDate(new Date());
   }
 
 

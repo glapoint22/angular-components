@@ -13,14 +13,15 @@ export class DayViewComponent implements OnChanges {
   public selectedDate: InputSignal<Date> = input.required<Date>();
   public onDateSelect: OutputEmitterRef<Date> = output<Date>();
   protected dates: Array<Date> = [];
-  protected currentMonth!: number;
+  protected currentDisplayedMonth!: number;
+ 
 
   public ngOnChanges(): void {
-    this.setCalendarDates();
+    this.generateDays();
   }
 
 
-  private setCalendarDates(): void {
+  private generateDays(): void {
     const date = this.date();
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
     const firstDayOfWeek = firstDayOfMonth.getDay(); // 0 (Sun) - 6 (Sat)
@@ -33,7 +34,7 @@ export class DayViewComponent implements OnChanges {
     const daysFromNextMonth = totalDays - (daysFromPrevMonth + daysInCurrentMonth);
 
     this.dates = [];
-    this.currentMonth = date.getMonth();
+    this.currentDisplayedMonth = date.getMonth();
 
     // Dates from the previous month
     this.setPreviousMonthDates(daysFromPrevMonth, daysInPreviousMonth, date);
@@ -79,8 +80,8 @@ export class DayViewComponent implements OnChanges {
 
 
 
-  protected isCurrentMonth(date: Date): boolean {
-    return date.getMonth() !== this.currentMonth;
+  protected isCurrentDisplayedMonth(date: Date): boolean {
+    return date.getMonth() !== this.currentDisplayedMonth;
   }
 
 

@@ -1,38 +1,10 @@
 <div class="calendar-grid">
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Jan</div>
+    @for (month of months; track $index) {
+    <div class="calendar-grid-item" [ngClass]="{
+            'selected-calendar-grid-item': isSelectedMonth($index),
+            'current-calendar-grid-item': isCurrentMonth($index)
+        }" (click)="onMonthClick($index)">
+        <div class="calendar-grid-item-text">{{ month }}</div>
     </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Feb</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Mar</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Apr</div>
-    </div>
-    <div class="calendar-grid-item selected-calendar-grid-item">
-        <div class="calendar-grid-item-text">May</div>
-    </div>
-    <div class="calendar-grid-item current-calendar-grid-item">
-        <div class="calendar-grid-item-text">Jun</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Jul</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Aug</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Sep</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Oct</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Nov</div>
-    </div>
-    <div class="calendar-grid-item">
-        <div class="calendar-grid-item-text">Dec</div>
-    </div>
+    }
 </div>
