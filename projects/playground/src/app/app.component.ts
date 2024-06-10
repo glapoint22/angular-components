@@ -16,7 +16,7 @@ import { FormFieldLabelComponent } from '../../../ngx-components/src/lib/compone
 import { FormFieldHintComponent } from '../../../ngx-components/src/lib/components/form-field-hint/form-field-hint.component';
 import { SuffixDirective } from '../../../ngx-components/src/lib/components/suffix/suffix.directive';
 import { PrefixDirective } from '../../../ngx-components/src/lib/components/prefix/prefix.directive';
-import { CalendarComponent } from '../../../ngx-components/src/lib/components/date-picker/calendar/calendar.component';
+import { DatePickerDirective } from '../../../ngx-components/src/lib/components/date-picker/directive/date-picker.directive';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +40,7 @@ import { CalendarComponent } from '../../../ngx-components/src/lib/components/da
     FormFieldHintComponent,
     SuffixDirective,
     PrefixDirective,
-    CalendarComponent
+    DatePickerDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -52,13 +52,12 @@ export class AppComponent {
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
   checked = true;
-  calendar = viewChild(CalendarComponent);
+  myDate! : Date;
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'light-theme');
     this.buttonLabel = 'Dark Theme';
     
-    this.calendar()?.setDate(new Date());
   }
 
 

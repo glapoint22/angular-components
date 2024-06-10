@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, OnInit, OutputEmitterRef, output, signal, viewChild } from '@angular/core';
 import { DayViewComponent } from './day-view/day-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { YearViewComponent } from './year-view/year-view.component';
@@ -13,13 +13,20 @@ import { CalendarView } from './calendar-view';
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
   protected date = signal<Date>(new Date());
   protected selectedDate = signal<Date>(new Date());
   protected selectedMonth!: number;
   protected selectedYear!: number;
   protected currentCalendarView = CalendarView.Day;
   protected calendarView = CalendarView;
+  public onDateChange: OutputEmitterRef<Date> = output<Date>();
+  private calendarBase = viewChild<ElementRef>('calendarBase');
+
+  public ngOnInit(): void {
+    setTimeout(() => this.calendarBase()?.nativeElement.focus());
+  }
+
 
   public setDate(date: Date): void {
     this.date.set(date);
@@ -54,8 +61,7 @@ export class CalendarComponent {
   }
 
   protected updateDateToToday(): void {
-    this.setDate(new Date());
-    this.changeView(CalendarView.Day);
+    this.onDateSelect(new Date());
   }
 
   protected changeView(view: CalendarView): void {
@@ -63,7 +69,7 @@ export class CalendarComponent {
   }
 
   protected onDateSelect(date: Date): void {
-    this.setDate(date);
+    this.onDateChange.emit(date);
   }
 
   protected onMonthSelect(month: number): void {

@@ -1,4 +1,4 @@
-<div class="calendar-base">
+<div #calendarBase class="calendar-base" (click)="$event.stopPropagation()" tabindex="0">
     <div class="calendar-header">
         <div style="display: flex; align-items: center;">
             <icon (click)="updateMonth(-1)">arrow_left</icon>

@@ -26,15 +26,15 @@
 <button iconButton><icon fill>star</icon></button>
 
 <divider/>
-<br>
-
-<form-field>
-    <input inputField placeholder="John">
-    <form-field-label>First Name</form-field-label>
-    <form-field-hint>Enter your first name</form-field-hint>
-    <icon fill suffix>person</icon>
-</form-field>
-
 <br> -->
 
-<calendar></calendar>
+<form-field>
+    <input #myInput="datePicker" inputField datePicker [(ngModel)]="myDate">
+    <form-field-label>First Name</form-field-label>
+    <form-field-hint>Enter your first name</form-field-hint>
+    <button iconButton suffix (click)="myInput.toggleCalendar()">
+        <icon fill>person</icon>
+    </button>
+</form-field>
+
+{{myDate}}
