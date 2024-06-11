@@ -19,20 +19,26 @@
 <div>Checked: {{checked}}</div>
 
 <br>
-<button basicButton>Basic</button>
-<button raisedButton>Raised</button>
-<button strokedButton>Stroked</button>
-<button flatButton>Flat</button>
-<button iconButton><icon fill>star</icon></button>
 
-<divider/>
+<div class="button-container">
+    <button basicButton>Basic</button>
+    <button raisedButton>Raised</button>
+    <button strokedButton>Stroked</button>
+    <button flatButton>Flat</button>
+    <button iconButton>
+        <icon fill>star</icon>
+    </button>
+</div>
+
+
+<divider />
 <br>
 
 <form-field>
     <input #myInput="datePicker" inputField datePicker [(ngModel)]="myDate">
-    <form-field-label>First Name</form-field-label>
-    <form-field-hint>Enter your first name</form-field-hint>
+    <form-field-label>Choose a date</form-field-label>
+    <form-field-hint>MM/DD/YYYY</form-field-hint>
     <button iconButton suffix (click)="myInput.toggleCalendar()">
-        <icon fill>person</icon>
+        <icon fill>calendar_month</icon>
     </button>
 </form-field>

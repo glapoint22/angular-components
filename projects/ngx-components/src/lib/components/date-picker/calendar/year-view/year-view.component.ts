@@ -15,6 +15,7 @@ export class YearViewComponent implements OnInit{
   public onYearSelect: OutputEmitterRef<number> = output<number>();
   protected years: Array<number> = [];
   private startYear: number = 0;
+  private readonly itemsPerPage: number = 12;
 
   public ngOnInit(): void {
     this.calculateStartYear();
@@ -22,21 +23,20 @@ export class YearViewComponent implements OnInit{
   }
 
   private calculateStartYear(): void {
-    // Ensure the start year is a multiple of 16
-    this.startYear = Math.floor(this.selectedYear() / 16) * 16;
+    this.startYear = Math.floor(this.selectedYear() / this.itemsPerPage) * this.itemsPerPage;
   }
 
   private generateYears(): void {
-    this.years = Array.from({ length: 16 }, (_, i) => this.startYear + i);
+    this.years = Array.from({ length: this.itemsPerPage }, (_, i) => this.startYear + i);
   }
 
   protected previousPage(): void {
-    this.startYear -= 16;
+    this.startYear -= this.itemsPerPage;
     this.generateYears();
   }
 
   protected nextPage(): void {
-    this.startYear += 16;
+    this.startYear += this.itemsPerPage;
     this.generateYears();
   }
 

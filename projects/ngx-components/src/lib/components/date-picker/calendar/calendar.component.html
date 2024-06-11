@@ -1,41 +1,64 @@
-<div #calendarBase class="calendar-base" (click)="$event.stopPropagation()" tabindex="0">
+<div #calendarBase class="calendar-base" (click)="$event.stopPropagation()" tabindex="0"
+    [class]="Color.getColorClass(color(), 'calendar')">
     <div class="calendar-header">
-        <div style="display: flex; align-items: center;">
-            <icon (click)="updateMonth(-1)">arrow_left</icon>
-            <div (click)="changeView(calendarView.Month)" class="calendar-month-text">{{ getMonthName(selectedMonth) }}
+
+        <!-- Month -->
+        <div class="calendar-header-month">
+            <div class="arrow-icon-container" (click)="updateMonth(-1)">
+                <icon>arrow_left</icon>
             </div>
-            <icon (click)="updateMonth(1)">arrow_right</icon>
-        </div>
 
-        <div style="display: flex; align-items: center;" (click)="updateDateToToday()">
-            <icon [fontSize]="20" [opsz]="20">calendar_month</icon>
-            <div class="calendar-month-text" style="margin-left: 5px;">Today</div>
-        </div>
+            <div class="header-text-button" [ngClass]="{'selected-page': currentCalendarView === calendarView.Month}"
+                (click)="toggleView(calendarView.Month)">
+                {{ getMonthName(selectedMonth) }}
+            </div>
 
-
-        <div style="display: flex; align-items: center;">
-            <icon (click)="updateYear(-1)">arrow_left</icon>
-            <div (click)="changeView(calendarView.Year)" class="calendar-month-text">{{ selectedYear }}</div>
-            <icon (click)="updateYear(1)">arrow_right</icon>
+            <div class="arrow-icon-container" (click)="updateMonth(1)">
+                <icon>arrow_right</icon>
+            </div>
         </div>
 
 
+        <!-- Today -->
+        <div class="calendar-header-today" (click)="updateDateToToday()">
+            <icon [fontSize]="17" [opsz]="17">calendar_month</icon>
+            <div>Today</div>
+        </div>
 
+
+        <!-- Year -->
+        <div class="calendar-header-year">
+            <div class="arrow-icon-container" (click)="updateYear(-1)">
+                <icon>arrow_left</icon>
+            </div>
+
+            <div class="header-text-button" [ngClass]="{'selected-page': currentCalendarView === calendarView.Year}"
+                (click)="toggleView(calendarView.Year)">
+                {{ selectedYear }}
+            </div>
+
+            <div class="arrow-icon-container" (click)="updateYear(1)">
+                <icon>arrow_right</icon>
+            </div>
+        </div>
     </div>
 
-    <div style="padding: 10px; height: 320px;">
+
+    <!-- Calendar View -->
+    <div class="calendar-view">
         @switch (
         currentCalendarView
         ) {
         @case (calendarView.Day) {
-        <day-view [date]="date()" [selectedDate]="selectedDate()" (onDateSelect)="onDateSelect($event)"></day-view>
+        <day-view [date]="date()" [selectedDate]="selectedDate()" (onDateSelect)="onDateSelect($event)" />
         }
         @case (calendarView.Month) {
-        <month-view [selectedMonth]="selectedMonth" [selectedYear]="selectedYear" (onMonthSelect)="onMonthSelect($event)">
-        </month-view>
+        <month-view [selectedMonth]="selectedMonth" [selectedYear]="selectedYear"
+            (onMonthSelect)="onMonthSelect($event)" />
+
         }
         @case (calendarView.Year) {
-        <year-view [selectedYear]="selectedYear" (onYearSelect)="onYearSelect($event)"></year-view>
+        <year-view [selectedYear]="selectedYear" (onYearSelect)="onYearSelect($event)" />
         }
         }
     </div>

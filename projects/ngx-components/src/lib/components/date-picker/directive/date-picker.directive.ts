@@ -1,8 +1,9 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Directive, ElementRef, HostListener, Renderer2, forwardRef, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, forwardRef, inject, input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CalendarComponent } from '../calendar/calendar.component';
+import { ColorType } from '../../../models/color';
 
 @Directive({
   selector: '[datePicker]',
@@ -15,6 +16,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
   }]
 })
 export class DatePickerDirective implements ControlValueAccessor {
+  public calendarColor = input<ColorType>('primary');
   private overlayRef!: OverlayRef;
   private elementRef: ElementRef<HTMLInputElement> = inject(ElementRef<HTMLInputElement>);
   private overlay = inject(Overlay);
@@ -35,7 +37,7 @@ export class DatePickerDirective implements ControlValueAccessor {
     const date = this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : undefined;
     const calendar = await this.openCalendar();
 
-    calendar.setDate(date);
+    calendar.initialize(this.calendarColor(), date);
     calendar.onDateChange.subscribe((date: Date) => this.onDateChange(date));
 
     this.createListeners();
@@ -45,15 +47,13 @@ export class DatePickerDirective implements ControlValueAccessor {
 
   private async openCalendar(): Promise<CalendarComponent> {
     const positionStrategy = this.overlay.position()
-      .flexibleConnectedTo(this.elementRef)
+      .flexibleConnectedTo(this.elementRef.nativeElement.parentElement!)
       .withPositions([
         {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
-          overlayY: 'top',
-          offsetX: -12,
-          offsetY: 12
+          overlayY: 'top'
         }
       ]);
 

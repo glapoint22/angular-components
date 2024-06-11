@@ -3,23 +3,33 @@ import { DayViewComponent } from './day-view/day-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { YearViewComponent } from './year-view/year-view.component';
 import { IconComponent } from '../../icon/icon.component';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CalendarView } from './calendar-view';
+import { Color, ColorType } from '../../../models/color';
 
 @Component({
   selector: 'calendar',
   standalone: true,
-  imports: [DayViewComponent, MonthViewComponent, YearViewComponent, IconComponent, DatePipe],
+  imports: [
+    CommonModule,
+    DayViewComponent,
+    MonthViewComponent,
+    YearViewComponent,
+    IconComponent,
+    DatePipe
+  ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent implements OnInit {
+  protected color = signal<ColorType>('primary');
   protected date = signal<Date>(new Date());
   protected selectedDate = signal<Date | undefined>(undefined);
   protected selectedMonth!: number;
   protected selectedYear!: number;
   protected currentCalendarView = CalendarView.Day;
   protected calendarView = CalendarView;
+  protected Color = Color;
   public onDateChange: OutputEmitterRef<Date> = output<Date>();
   private calendarBase = viewChild<ElementRef>('calendarBase');
 
@@ -28,10 +38,11 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  public setDate(date?: Date): void {
+  public initialize(colorType: ColorType, date?: Date): void {
     this.selectedDate.set(date);
+    this.color.set(colorType);
 
-    if (!date) date = new Date();
+    if (!date || isNaN(date.getTime())) date = new Date();
     this.date.set(date);
     this.selectedMonth = date.getMonth();
     this.selectedYear = date.getFullYear();
@@ -68,6 +79,10 @@ export class CalendarComponent implements OnInit {
 
   protected changeView(view: CalendarView): void {
     this.currentCalendarView = view;
+  }
+
+  protected toggleView(view: CalendarView): void {
+    this.changeView(this.currentCalendarView === view ? CalendarView.Day : view);
   }
 
   protected onDateSelect(date: Date): void {

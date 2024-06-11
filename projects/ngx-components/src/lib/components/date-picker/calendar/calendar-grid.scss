@@ -21,21 +21,26 @@
     }
 
     &:hover:not(.selected-calendar-grid-item)::before {
-        background-color: rgb(223, 223, 223);
+        background-color: var(--calendar-grid-item-hover-background-color);
+    }
+
+
+    &:active:not(.selected-calendar-grid-item)::before {
+        background-color: var(--calendar-grid-item-active-background-color);
     }
 }
 
 .selected-calendar-grid-item {
-    color: white;
+    color: var(--calendar-text-color);
 
     &::before {
-        background-color: rgb(8, 130, 230);
+        background-color: var(--calendar-selected-item-color);
     }
 }
 
 .current-calendar-grid-item:not(.selected-calendar-grid-item) {
     &::before {
-        border: 1px solid rgb(8, 130, 230);
+        border: 1px solid var(--calendar-selected-item-color);
     }
 }
 
@@ -45,5 +50,5 @@
 
 
 .disabled-calendar-grid-item:not(.selected-calendar-grid-item) {
-    color: #ccc;
+    color: var(--calendar-grid-item-disabled-color);
 }
