@@ -10,7 +10,7 @@ import { Component, InputSignal, OnChanges, OutputEmitterRef, input, output } fr
 })
 export class DayViewComponent implements OnChanges {
   public date: InputSignal<Date> = input.required<Date>();
-  public selectedDate: InputSignal<Date> = input.required<Date>();
+  public selectedDate: InputSignal<Date | undefined> = input.required<Date | undefined>();
   public onDateSelect: OutputEmitterRef<Date> = output<Date>();
   protected dates: Array<Date> = [];
   protected currentDisplayedMonth!: number;
@@ -95,10 +95,10 @@ export class DayViewComponent implements OnChanges {
 
 
 
-  protected isSelectedDate(date: Date): boolean {
-    return date.getDate() === this.selectedDate().getDate() &&
-      date.getMonth() === this.selectedDate().getMonth() &&
-      date.getFullYear() === this.selectedDate().getFullYear();
+  protected isSelectedDate(date?: Date): boolean {
+    return date?.getDate() === this.selectedDate()?.getDate() &&
+      date?.getMonth() === this.selectedDate()?.getMonth() &&
+      date?.getFullYear() === this.selectedDate()?.getFullYear();
   }
 
 

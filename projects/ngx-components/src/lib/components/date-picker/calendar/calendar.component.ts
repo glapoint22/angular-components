@@ -15,7 +15,7 @@ import { CalendarView } from './calendar-view';
 })
 export class CalendarComponent implements OnInit {
   protected date = signal<Date>(new Date());
-  protected selectedDate = signal<Date>(new Date());
+  protected selectedDate = signal<Date | undefined>(undefined);
   protected selectedMonth!: number;
   protected selectedYear!: number;
   protected currentCalendarView = CalendarView.Day;
@@ -28,9 +28,11 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  public setDate(date: Date): void {
-    this.date.set(date);
+  public setDate(date?: Date): void {
     this.selectedDate.set(date);
+
+    if (!date) date = new Date();
+    this.date.set(date);
     this.selectedMonth = date.getMonth();
     this.selectedYear = date.getFullYear();
   }

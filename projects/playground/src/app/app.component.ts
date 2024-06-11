@@ -52,12 +52,11 @@ export class AppComponent {
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
   checked = true;
-  myDate! : Date;
+  myDate: Date = new Date('6/22/24');
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'light-theme');
     this.buttonLabel = 'Dark Theme';
-    
   }
 
 

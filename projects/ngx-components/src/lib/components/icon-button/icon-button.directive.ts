@@ -1,5 +1,6 @@
 import { Directive, OnInit } from '@angular/core';
 import { Button } from '../../shared/button';
+import { Color } from '../../models/color';
 
 @Directive({
   selector: '[iconButton]',
@@ -8,8 +9,10 @@ import { Button } from '../../shared/button';
 export class IconButtonDirective extends Button implements OnInit {
 
   public override ngOnInit(): void {
-    super.ngOnInit();
+    this.addClass('button');
     this.addClass('icon-button');
+    
+    if (this.color())
+      this.addClass(Color.getColorClass(this.color(), 'button'));
   }
-
 }

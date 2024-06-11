@@ -2,6 +2,7 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Directive, ElementRef, HostListener, Renderer2, forwardRef, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Directive({
   selector: '[datePicker]',
@@ -22,17 +23,7 @@ export class DatePickerDirective implements ControlValueAccessor {
   private removeElementRefClickListener!: () => void;
   private removeEscapeKeyListener!: () => void;
   private onChange!: (value: Date) => void;
-
-  @HostListener('blur')
-  public onBlur(): void {
-    if (this.elementRef.nativeElement.value === '' ||
-      this.elementRef.nativeElement.value === null ||
-      this.elementRef.nativeElement.value === undefined) return;
-
-    this.elementRef.nativeElement.value = this.formatDate(this.elementRef.nativeElement.value);
-
-    this.onChange(new Date(this.elementRef.nativeElement.value));
-  }
+  private onTouched!: () => void;
 
 
   public async toggleCalendar(): Promise<void> {
@@ -41,6 +32,18 @@ export class DatePickerDirective implements ControlValueAccessor {
       return;
     }
 
+    const date = this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : undefined;
+    const calendar = await this.openCalendar();
+
+    calendar.setDate(date);
+    calendar.onDateChange.subscribe((date: Date) => this.onDateChange(date));
+
+    this.createListeners();
+  }
+
+
+
+  private async openCalendar(): Promise<CalendarComponent> {
     const positionStrategy = this.overlay.position()
       .flexibleConnectedTo(this.elementRef)
       .withPositions([
@@ -54,24 +57,31 @@ export class DatePickerDirective implements ControlValueAccessor {
         }
       ]);
 
-
-
     this.overlayRef = this.overlay.create({ positionStrategy });
 
     const { CalendarComponent } = await import('../calendar/calendar.component');
     const calendar = new ComponentPortal(CalendarComponent);
     const calendarRef = this.overlayRef.attach(calendar);
-    const date = this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : new Date();
 
-    calendarRef.instance.setDate(date);
-    calendarRef.instance.onDateChange.subscribe((date: Date) => {
+    return calendarRef.instance;
+  }
 
-      this.elementRef.nativeElement.value = this.formatDate(date);
-      this.onChange(date);
-      this.closeCalendar();
-    });
 
-    this.createListeners();
+
+
+
+  private closeCalendar(): void {
+    this.overlayRef.detach();
+    this.removeListeners();
+  }
+
+
+
+
+  private onDateChange(date: Date): void {
+    this.elementRef.nativeElement.value = this.formatDate(date);
+    if (this.onChange) this.onChange(date);
+    this.closeCalendar();
   }
 
 
@@ -81,6 +91,8 @@ export class DatePickerDirective implements ControlValueAccessor {
     this.removeEscapeKeyListener = this.renderer.listen('window', 'keydown.escape', () => this.closeCalendar());
   }
 
+  
+
   private removeListeners(): void {
     this.removeWindowClickListener();
     this.removeElementRefClickListener();
@@ -88,10 +100,7 @@ export class DatePickerDirective implements ControlValueAccessor {
   }
 
 
-  private closeCalendar(): void {
-    this.overlayRef.detach();
-    this.removeListeners();
-  }
+  
 
 
   private formatDate(value: any): string {
@@ -105,6 +114,19 @@ export class DatePickerDirective implements ControlValueAccessor {
   }
 
 
+
+  @HostListener('blur')
+  public onBlur(): void {
+    if (this.elementRef.nativeElement.value === '' ||
+      this.elementRef.nativeElement.value === null ||
+      this.elementRef.nativeElement.value === undefined) return;
+
+    this.elementRef.nativeElement.value = this.formatDate(this.elementRef.nativeElement.value);
+
+    if (this.onChange) this.onChange(new Date(this.elementRef.nativeElement.value));
+  }
+
+
   public writeValue(value: any): void {
     if (!value) return;
 
@@ -115,6 +137,7 @@ export class DatePickerDirective implements ControlValueAccessor {
     this.onChange = fn;
   }
 
-  public registerOnTouched(fn: any): void { }
-  public setDisabledState?(isDisabled: boolean): void { }
+  public registerOnTouched(fn: any): void { 
+    this.onTouched = fn;
+  }
 }

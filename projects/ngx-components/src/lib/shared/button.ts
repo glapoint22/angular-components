@@ -3,7 +3,7 @@ import { Color, ColorType } from "../models/color";
 
 @Directive()
 export abstract class Button implements OnInit {
-    public color = input<ColorType>('primary');
+    public color = input<ColorType>();
     private el: ElementRef<HTMLButtonElement> = inject(ElementRef<HTMLButtonElement>);
     private renderer: Renderer2 = inject(Renderer2);
 
