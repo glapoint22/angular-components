@@ -1,0 +1,51 @@
+.dialog-box-base {
+    border-radius: 5px;
+    box-shadow: 2px 2px 7px 2px rgba(black, 0.25);
+    background-color: #282828;
+    user-select: none;
+    border: 1px solid #505050;
+    outline: none;
+    width: fit-content;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+.dialog-box-header {
+    display: flex;
+    height: 32px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 16px;
+    user-select: none;
+    background: linear-gradient(#363636, #202020);
+}
+
+.dialog-box-header-title {
+    font-size: 13px;
+    color: #dbdbdb;
+}
+
+.dialog-box-header-close {
+    cursor: pointer;
+    padding: 0 16px;
+    color: #dbdbdb;
+}
+
+.dialog-box-content {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    color: #dbdbdb;
+}
+
+.dialog-box-footer {
+    display: flex;
+    margin: 10px;
+    flex-direction: row-reverse;
+    
+    button {
+      margin: 0 5px;
+    }
+}

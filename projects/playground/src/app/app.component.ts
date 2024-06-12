@@ -17,6 +17,7 @@ import { FormFieldHintComponent } from '../../../ngx-components/src/lib/componen
 import { SuffixDirective } from '../../../ngx-components/src/lib/components/suffix/suffix.directive';
 import { PrefixDirective } from '../../../ngx-components/src/lib/components/prefix/prefix.directive';
 import { DatePickerDirective } from '../../../ngx-components/src/lib/components/date-picker/directive/date-picker.directive';
+import { DialogService } from '../../../ngx-components/src/lib/components/dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -48,6 +49,7 @@ import { DatePickerDirective } from '../../../ngx-components/src/lib/components/
 export class AppComponent {
   protected buttonLabel!: string;
   private renderer = inject(Renderer2);
+  private dialog = inject(DialogService);
 
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
@@ -70,5 +72,17 @@ export class AppComponent {
       this.renderer.addClass(document.body, 'light-theme');
       this.renderer.removeClass(document.body, 'dark-theme');
     }
+  }
+
+  protected openDialog(): void {
+    this.dialog.open({
+      title: 'Dialog Title',
+      message: 'Dialog Message',
+      action: () => console.log('Dialog Action'),
+      actionName: 'OK',
+      icon: {
+        name: 'warning'
+      }
+    });
   }
 }

@@ -60,8 +60,8 @@ export class DatePickerDirective implements ControlValueAccessor {
     this.overlayRef = this.overlay.create({ positionStrategy });
 
     const { CalendarComponent } = await import('../calendar/calendar.component');
-    const calendar = new ComponentPortal(CalendarComponent);
-    const calendarRef = this.overlayRef.attach(calendar);
+    const calendarPortal = new ComponentPortal(CalendarComponent);
+    const calendarRef = this.overlayRef.attach(calendarPortal);
 
     return calendarRef.instance;
   }
