@@ -4,4 +4,5 @@ export type DialogIcon =  {
     name: string;
     color?: ColorType;
     size?: number;
+    fill?: boolean;
 }

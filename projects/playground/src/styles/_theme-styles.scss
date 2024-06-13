@@ -9,6 +9,7 @@
 @use './form-field-theme' as form-field;
 @use './icon-button-theme' as icon-button;
 @use './calendar-theme' as calendar;
+@use './dialog-theme' as dialog;
 
 @mixin theme($theme) {
     $theme-name: map.get($theme, theme-name);
@@ -26,5 +27,6 @@
         @include divider.theme(map.get($palettes, primary), $theme-type);
         @include form-field.theme($palettes, $theme-type);
         @include calendar.theme($palettes, $theme-type);
+        @include dialog.theme($palettes, $theme-type);
     }
 }

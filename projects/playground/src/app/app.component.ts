@@ -1,4 +1,4 @@
-import { Component, Renderer2, inject, viewChild } from '@angular/core';
+import { Component, Renderer2, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IconComponent, RadioButtonComponent } from '../../../ngx-components/src/public-api';
 import { RadioGroupComponent } from '../../../ngx-components/src/lib/components/radio-group/radio-group.component';
@@ -76,12 +76,18 @@ export class AppComponent {
 
   protected openDialog(): void {
     this.dialog.open({
-      title: 'Dialog Title',
-      message: 'Dialog Message',
+      color: 'primary',
+      title: 'Delete Item',
+      message: 'Are you sure you want to delete this item?',
       action: () => console.log('Dialog Action'),
-      actionName: 'OK',
+      actionName: 'Delete',
+      cancelName: 'Cancel',
+      defaultFocus: 'cancel',
       icon: {
-        name: 'warning'
+        name: 'warning',
+        color: 'warn',
+        size: 60,
+        fill: true
       }
     });
   }

@@ -16,7 +16,7 @@
         background-color: var(--icon-button-active-color);
     }
 
-    &:focus-visible:not([disabled]):not(:active):before {
+    &:focus:not([disabled]):not(:active):before {
         background-color: var(--icon-button-focus-color);
     }
 

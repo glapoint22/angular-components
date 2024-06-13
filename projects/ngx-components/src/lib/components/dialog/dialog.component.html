@@ -1,0 +1,30 @@
+<div class="dialog-box-base" [class]="Color.getColorClass(color, 'dialog')">
+    
+    <!-- Header -->
+    <div class="dialog-box-header">
+        <div class="dialog-box-header-title">{{options.title}}</div>
+        <div class="dialog-box-header-close" (click)="close()">
+            <icon [fontSize]="18">close</icon>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="dialog-box-content">
+        @if (options.icon) {
+            <div class="dialog-icon-container">
+
+                <icon [fontSize]="options.icon.size ? options.icon.size : 24" [color]="options.icon.color || color"
+                    [fill]="options.icon.fill">
+                    {{options.icon.name}}</icon>
+            </div>
+        }
+
+        {{options.message}}
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-box-footer">
+        <button #actionButton flatButton (click)="options.action(); close()" [color]="color">{{options.actionName || 'Yes'}}</button>
+        <button #cancelButton strokedButton (click)="close()" [color]="color">{{options.cancelName || 'No'}}</button>
+    </div>
+</div>

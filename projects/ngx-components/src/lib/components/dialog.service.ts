@@ -19,8 +19,8 @@ export class DialogService {
     this.overlayRef = this.overlay.create({ positionStrategy, hasBackdrop: true });
     this.overlayRef.backdropClick().subscribe(() => this.close());
 
-    const { DialogBoxComponent } = await import('./dialog-box/dialog-box.component');
-    const dialogPortal = new ComponentPortal(DialogBoxComponent);
+    const { DialogComponent: DialogComponent } = await import('./dialog/dialog.component');
+    const dialogPortal = new ComponentPortal(DialogComponent);
     const dialog = this.overlayRef.attach(dialogPortal);
 
     dialog.instance.set(options);
