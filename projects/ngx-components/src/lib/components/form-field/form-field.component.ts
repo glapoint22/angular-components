@@ -6,6 +6,7 @@ import { FormFieldLabelComponent } from '../form-field-label/form-field-label.co
 import { FormFieldHintComponent } from '../form-field-hint/form-field-hint.component';
 import { SuffixDirective } from '../suffix/suffix.directive';
 import { PrefixDirective } from '../prefix/prefix.directive';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'form-field',
@@ -16,24 +17,26 @@ import { PrefixDirective } from '../prefix/prefix.directive';
 })
 export class FormFieldComponent implements OnInit {
   public color = input<ColorType>('primary');
-  private inputField = contentChild(InputFieldDirective);
+  protected inputField = contentChild(InputFieldDirective);
   protected formFieldLabel = contentChild(FormFieldLabelComponent);
   protected formFieldHint = contentChild(FormFieldHintComponent);
   protected prefix = contentChild(PrefixDirective);
   protected suffix = contentChild(SuffixDirective);
-  protected hasFocus!: boolean;
+  protected dropdown = contentChild(DropdownComponent);
   protected Color = Color;
+  protected selected!: boolean;
 
   public ngOnInit(): void {
-    if (!this.inputField()) throw new Error('No input field provided');
-
-    this.inputField()?.onBlur.subscribe(() => this.hasFocus = false);
-    this.inputField()?.onFocus.subscribe(() => this.hasFocus = true);
+    this.inputField()?.onBlur.subscribe(() => this.selected = false);
+    this.inputField()?.onFocus.subscribe(() => this.selected = true);
   }
 
 
   protected onClick(): void {
     this.inputField()?.setFocus();
-    this.hasFocus = true;
+
+
+    this.dropdown()?.onHostClick();
+
   }
 }

@@ -18,6 +18,7 @@ import { SuffixDirective } from '../../../ngx-components/src/lib/components/suff
 import { PrefixDirective } from '../../../ngx-components/src/lib/components/prefix/prefix.directive';
 import { DatePickerDirective } from '../../../ngx-components/src/lib/components/date-picker/directive/date-picker.directive';
 import { DialogService } from '../../../ngx-components/src/lib/components/dialog.service';
+import { DropdownComponent } from '../../../ngx-components/src/lib/components/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +42,8 @@ import { DialogService } from '../../../ngx-components/src/lib/components/dialog
     FormFieldHintComponent,
     SuffixDirective,
     PrefixDirective,
-    DatePickerDirective
+    DatePickerDirective,
+    DropdownComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

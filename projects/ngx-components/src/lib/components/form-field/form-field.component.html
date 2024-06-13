@@ -1,6 +1,8 @@
-<div class="form-field">
-    <div class="form-field-flex" (click)="onClick()" [ngClass]="{'form-field-focus': hasFocus }"
-        [class]="Color.getColorClass(color(), 'form-field')">
+<div [class]="Color.getColorClass(color(), 'form-field')">
+
+
+    <div class="form-field-content" [tabindex]="!inputField()? 0 : -1" [ngClass]="{'selected': selected }"
+        (click)="onClick()" [style.cursor]="dropdown()? 'pointer': null">
 
         <!-- Notch -->
         <div class="notch-containers">
@@ -9,9 +11,11 @@
 
             <!-- Center Container -->
             <div class="center-notch-container" [ngClass]="{'center-notch-container-top': !formFieldLabel()}">
+                @if (formFieldLabel()) {
                 <div class="form-field-label-container">
                     <ng-content select="form-field-label"></ng-content>
                 </div>
+                }
             </div>
 
             <!-- Right Container -->
@@ -25,14 +29,21 @@
 
 
         <!-- Input -->
+        @if(inputField()) {
         <ng-content select="[inputField]"></ng-content>
+        }
+
+
+        <!-- Dropdown -->
+        @if(dropdown()) {
+        <ng-content select="dropdown"></ng-content>
+        }
 
 
         <!-- Suffix -->
         @if(suffix()) {
         <ng-content select="[suffix]"></ng-content>
         }
-
     </div>
 
     <!-- Hint -->

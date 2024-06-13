@@ -2,34 +2,33 @@
     display: block;
 }
 
-.form-field-focus {
-    .left-notch-container,
-    .center-notch-container,
-    .right-notch-container,
-    .center-notch-container-top {
-        border-width: 2px;
-        border-color: var(--form-field-focus-border-color);
-    }
-
-    .form-field-label-container {
-        color: var(--form-field-focus-label-color);
-    }
-}
-
-.form-field {
-    display: inline-flex;
-    flex-direction: column;
-}
 
 
-.form-field-flex {
-    display: inline-flex;
+.form-field-content {
+    display: flex;
     width: 100%;
     position: relative;
     padding: 12px 13px;
     align-items: center;
     max-height: 45px;
+    outline: none;
+    max-width: 220px;
+
+    &.selected, &:focus {
+        .left-notch-container,
+        .center-notch-container,
+        .right-notch-container,
+        .center-notch-container-top {
+            border-width: 2px;
+            border-color: var(--form-field-focus-border-color);
+        }
+    
+        .form-field-label-container {
+            color: var(--form-field-focus-label-color);
+        }
+    }
 }
+
 
 .notch-containers {
     width: 100%;
