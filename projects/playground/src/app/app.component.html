@@ -53,5 +53,11 @@
 
 <form-field>
     <form-field-label>Favorite food</form-field-label>
-    <dropdown></dropdown>
+    <dropdown [(ngModel)]="selectedValue" name="food">
+        @for (food of foods; track food) {
+        <dropdown-item [value]="food.value">{{food.viewValue}}</dropdown-item>
+        }
+    </dropdown>
 </form-field>
+
+<div>Your favorite food is: {{selectedValue}}</div>

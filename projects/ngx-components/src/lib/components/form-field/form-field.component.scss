@@ -4,7 +4,7 @@
 
 
 
-.form-field-content {
+.form-field {
     display: flex;
     width: 100%;
     position: relative;
@@ -14,17 +14,17 @@
     outline: none;
     max-width: 220px;
 
-    &.selected, &:focus {
+    &.form-field-selected, &:focus {
         .left-notch-container,
         .center-notch-container,
         .right-notch-container,
         .center-notch-container-top {
             border-width: 2px;
-            border-color: var(--form-field-focus-border-color);
+            border-color: var(--form-field-selected-border-color);
         }
     
         .form-field-label-container {
-            color: var(--form-field-focus-label-color);
+            color: var(--form-field-selected-label-color);
         }
     }
 }

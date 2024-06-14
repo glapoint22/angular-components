@@ -32,11 +32,11 @@ export class FormFieldComponent implements OnInit {
   }
 
 
-  protected onClick(): void {
+  protected onFocus(): void {
     this.inputField()?.setFocus();
+  }
 
-
-    this.dropdown()?.onHostClick();
-
+  protected onClick(): void {
+    this.dropdown()?.toggleList();
   }
 }

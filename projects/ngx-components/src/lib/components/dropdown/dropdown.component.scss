@@ -2,3 +2,21 @@
     display: block;
     width: 100%;
 }
+
+.dropdown {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+.selected-item-container {
+    width: 100%;
+}
+
+.dropdown-list {
+    width: 100%;
+    border: 1px solid #005cbb;
+    background: white;
+    max-height: 275px;
+    overflow: auto;
+}

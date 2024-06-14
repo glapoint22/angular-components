@@ -1,9 +1,12 @@
-<div style="    display: inline-flex;
-align-items: center;
-width: 100%;">
-<div style="width: 100%;">
-    Pizza
+<div class="dropdown">
+    <div class="selected-item-container">
+        {{selectedValue}}
+    </div>
+    <icon>arrow_drop_down</icon>
 </div>
 
-<icon>arrow_drop_down</icon>
-</div>
+<ng-template #dropdownListTemplate>
+    <div class="dropdown-list">
+        <ng-content></ng-content>
+    </div>
+</ng-template>

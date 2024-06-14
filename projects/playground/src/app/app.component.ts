@@ -19,6 +19,12 @@ import { PrefixDirective } from '../../../ngx-components/src/lib/components/pref
 import { DatePickerDirective } from '../../../ngx-components/src/lib/components/date-picker/directive/date-picker.directive';
 import { DialogService } from '../../../ngx-components/src/lib/components/dialog.service';
 import { DropdownComponent } from '../../../ngx-components/src/lib/components/dropdown/dropdown.component';
+import { DropdownItemComponent } from '../../../ngx-components/src/lib/components/dropdown-item/dropdown-item.component';
+
+interface Food {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -43,7 +49,8 @@ import { DropdownComponent } from '../../../ngx-components/src/lib/components/dr
     SuffixDirective,
     PrefixDirective,
     DatePickerDirective,
-    DropdownComponent
+    DropdownComponent,
+    DropdownItemComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -52,6 +59,15 @@ export class AppComponent {
   protected buttonLabel!: string;
   private renderer = inject(Renderer2);
   private dialog = inject(DialogService);
+  
+
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];
+
+  selectedValue: string = this.foods[1].value;
 
   favoriteSeason: string = 'Summer';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];

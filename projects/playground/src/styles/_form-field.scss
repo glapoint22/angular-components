@@ -1,0 +1,7 @@
+.form-field:focus {
+    dropdown {
+        icon {
+            color: var(--form-field-selected-border-color)
+        }
+    }
+}

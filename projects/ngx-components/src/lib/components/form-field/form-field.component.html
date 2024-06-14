@@ -1,8 +1,8 @@
 <div [class]="Color.getColorClass(color(), 'form-field')">
 
 
-    <div class="form-field-content" [tabindex]="!inputField()? 0 : -1" [ngClass]="{'selected': selected }"
-        (click)="onClick()" [style.cursor]="dropdown()? 'pointer': null">
+    <div class="form-field" [tabindex]="!inputField()? 0 : -1" [ngClass]="{'form-field-selected': selected }"
+        [style.cursor]="dropdown()? 'pointer': null" (focus)="onFocus()" (click)="onClick(); $event.stopPropagation()">
 
         <!-- Notch -->
         <div class="notch-containers">
