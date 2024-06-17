@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" [ngClass]="{'dropdown-list-item-selected': dropdownListItemSelected}">
     <div class="selected-item-container">
         {{selectedValue}}
     </div>
@@ -6,7 +6,7 @@
 </div>
 
 <ng-template #dropdownListTemplate>
-    <div class="dropdown-list">
+    <div class="dropdown-list" (mousedown)="dropdownListMousedown()">
         <ng-content></ng-content>
     </div>
 </ng-template>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, contentChild, input } from '@angular/core';
+import { Component, ElementRef, OnInit, contentChild, input, viewChild } from '@angular/core';
 import { Color, ColorType } from '../../models/color';
 import { InputFieldDirective } from '../input-field/input-field.directive';
 import { FormFieldLabelComponent } from '../form-field-label/form-field-label.component';
@@ -25,15 +25,26 @@ export class FormFieldComponent implements OnInit {
   protected dropdown = contentChild(DropdownComponent);
   protected Color = Color;
   protected selected!: boolean;
+  private formField = viewChild<ElementRef<HTMLElement>>('formField');
 
   public ngOnInit(): void {
     this.inputField()?.onBlur.subscribe(() => this.selected = false);
     this.inputField()?.onFocus.subscribe(() => this.selected = true);
+    this.dropdown()?.onDropdownListMousedown.subscribe(() => this.selected = true);
+    this.dropdown()?.onDropdownItemClick.subscribe(() => {
+      this.selected = false;
+      this.formField()?.nativeElement.focus();
+    });
   }
 
 
   protected onFocus(): void {
     this.inputField()?.setFocus();
+    this.dropdown()?.onFocus();
+  }
+
+  protected onBlur(): void {
+    this.dropdown()?.onBlur();
   }
 
   protected onClick(): void {

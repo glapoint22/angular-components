@@ -20,3 +20,9 @@
     max-height: 275px;
     overflow: auto;
 }
+
+.dropdown-list-item-selected {
+    icon {
+        color: var(--form-field-selected-border-color);
+    }
+}

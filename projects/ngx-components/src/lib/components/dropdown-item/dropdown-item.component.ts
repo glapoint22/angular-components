@@ -11,11 +11,11 @@ import { Component, booleanAttribute, input, output } from '@angular/core';
 export class DropdownItemComponent {
   public disabled = input(false, { transform: booleanAttribute });
   public value = input<any>();
-  public onSelectionChange = output<DropdownItemComponent>();
+  public onDropdownItemClick = output<DropdownItemComponent>();
   protected isSelected!: boolean;
 
   protected onClick(): void {
-    this.onSelectionChange.emit(this);
+    this.onDropdownItemClick.emit(this);
   }
 
   public setSelected(isSelected: boolean): void {
