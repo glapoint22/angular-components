@@ -1,12 +1,13 @@
-<div class="dropdown" [ngClass]="{'dropdown-list-item-selected': dropdownListItemSelected}">
-    <div class="selected-item-container">
+<div class="dropdown" [ngClass]="{'dropdown-disabled': disabled()}">
+    <div class="dropdown-text">
         {{selectedValue}}
     </div>
     <icon>arrow_drop_down</icon>
 </div>
 
 <ng-template #dropdownListTemplate>
-    <div class="dropdown-list" (mousedown)="dropdownListMousedown()">
+    <div class="dropdown-list" (mousedown)="$event.preventDefault()" (mousewheel)="$event.stopPropagation()"
+        [class]="Color.getColorClass(formField.color(), 'form-field')">
         <ng-content></ng-content>
     </div>
 </ng-template>

@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, Renderer2, TemplateRef, ViewContainerRef, booleanAttribute, contentChildren, forwardRef, inject, input, output, viewChild } from '@angular/core';
+import { AfterViewInit, Component, Renderer2, TemplateRef, ViewContainerRef, booleanAttribute, contentChildren, forwardRef, inject, input, viewChild } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormFieldComponent } from '../form-field/form-field.component';
+import { Color } from '../../models/color';
 
 @Component({
   selector: 'dropdown',
@@ -20,29 +22,26 @@ import { CommonModule } from '@angular/common';
 })
 export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   public disabled = input(false, { transform: booleanAttribute });
-  public onDropdownListMousedown = output<void>();
-  public onDropdownItemClick = output<void>();
+  protected selectedValue!: string;
+  protected formField = inject(FormFieldComponent);
+  protected Color = Color;
   private dropdownListTemplate = viewChild<TemplateRef<any>>('dropdownListTemplate');
   private dropdownItems = contentChildren(DropdownItemComponent);
   private overlay = inject(Overlay);
   private viewContainerRef = inject(ViewContainerRef);
   private overlayRef!: OverlayRef;
   private isDropdownListOpen!: boolean;
-  protected selectedValue!: string;
   private renderer = inject(Renderer2);
   private removeEscapeKeyListener!: () => void;
+  private removeMousewheelListener!: () => void;
   private removeKeydownListener!: () => void;
   private onChange!: (value: any) => void;
-  private selectedDropdownItemIndex!: number;
-  protected isDropdownListMousedown!: boolean;
-  protected dropdownListItemSelected!: boolean;
+  private selectedDropdownItemIndex: number = -1;
+
 
   ngAfterViewInit() {
     this.dropdownItems().forEach(item => {
       item.onDropdownItemClick.subscribe((dropdownItem: DropdownItemComponent) => {
-        this.removeKeydownListener();
-        this.dropdownListItemSelected = false;
-        this.onDropdownItemClick.emit();
         this.setSelectedItem(dropdownItem);
         this.closeList();
       });
@@ -79,7 +78,8 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
-          overlayY: 'top'
+          overlayY: 'top',
+          offsetY: -1
         }
       ]);
 
@@ -91,6 +91,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
     this.isDropdownListOpen = true;
 
     this.removeEscapeKeyListener = this.renderer.listen('window', 'keydown.escape', () => this.closeList());
+    this.removeMousewheelListener = this.renderer.listen('window', 'mousewheel', () => this.closeList());
   }
 
 
@@ -109,19 +110,9 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   }
 
   public onBlur(): void {
-    if (this.isDropdownListMousedown) {
-      this.isDropdownListMousedown = false;
-      return;
-    }
-
     this.removeKeydownListener();
-    this.closeList();
-  }
+    if (this.isDropdownListOpen) this.closeList();
 
-  protected dropdownListMousedown(): void {
-    this.isDropdownListMousedown = true;
-    this.dropdownListItemSelected = true;
-    this.onDropdownListMousedown.emit();
   }
 
 
@@ -146,6 +137,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
     this.overlayRef.detach();
     this.isDropdownListOpen = false;
     this.removeEscapeKeyListener();
+    this.removeMousewheelListener();
   }
 
   private getSelectedDropdownItemIndex(index: number): number {
@@ -168,9 +160,8 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
-    // throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-  }
+
+  registerOnTouched(fn: any): void { }
+
+  setDisabledState?(isDisabled: boolean): void { }
 }

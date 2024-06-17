@@ -1,7 +1,15 @@
-.form-field:focus {
-    dropdown {
+.form-field {
+    .dropdown {
         icon {
-            color: var(--form-field-selected-border-color)
+            color: var(--form-field-dropdown-arrow-color)
+        }
+    }
+
+    &:focus {
+        .dropdown {
+            icon {
+                color: var(--form-field-dropdown-selected-arrow-color)
+            }
         }
     }
 }

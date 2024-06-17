@@ -8,6 +8,19 @@
         (variable-name: 'form-field-caret-color', color-keys: (light: 40, dark: 80)),
         (variable-name: 'form-field-background-color', color-keys: (light: 98, dark: 20), color-map: 'neutral-variant'),
         (variable-name: 'form-field-label-color', color-keys: (light: 30, dark: 80), color-map: 'neutral-variant'),
-        (variable-name: 'form-field-selected-label-color', color-keys: (light: 40, dark: 80))
+        (variable-name: 'form-field-selected-label-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'form-field-disabled-border-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.12),
+        (variable-name: 'form-field-disabled-label-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
+
+        (variable-name: 'form-field-dropdown-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
+        (variable-name: 'form-field-dropdown-disabled-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
+        (variable-name: 'form-field-dropdown-arrow-color', color-keys: (light: 30, dark: 80), color-map: 'neutral-variant'),
+        (variable-name: 'form-field-dropdown-disabled-arrow-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
+        (variable-name: 'form-field-dropdown-selected-arrow-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'form-field-dropdown-item-hover-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.08),
+        (variable-name: 'form-field-dropdown-item-selected-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'form-field-dropdown-item-selected-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'form-field-dropdown-list-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),
+        (variable-name: 'form-field-dropdown-list-border-color', color-keys: (light: 40, dark: 80))
     ));
 }

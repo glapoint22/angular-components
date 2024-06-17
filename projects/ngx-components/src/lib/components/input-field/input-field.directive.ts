@@ -7,8 +7,13 @@ import { Directive, ElementRef, HostListener, Renderer2, inject, output } from '
 export class InputFieldDirective {
   public onBlur = output<void>();
   public onFocus = output<void>();
-  private el: ElementRef<HTMLButtonElement> = inject(ElementRef<HTMLInputElement>);
+  public el: ElementRef<HTMLInputElement> = inject(ElementRef<HTMLInputElement>);
   private renderer: Renderer2 = inject(Renderer2);
+  
+  public get isDisabled() : boolean {
+    return this.el.nativeElement.disabled;
+  }
+  
 
   public ngOnInit(): void {
     this.renderer.addClass(this.el.nativeElement, 'input-field');

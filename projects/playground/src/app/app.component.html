@@ -54,9 +54,10 @@
 <form-field>
     <form-field-label>Favorite food</form-field-label>
     <dropdown [(ngModel)]="selectedValue" name="food">
-        @for (food of foods; track food) {
-        <dropdown-item [value]="food.value">{{food.viewValue}}</dropdown-item>
-        }
+        <dropdown-item>None</dropdown-item>
+    @for (state of states; track state) {
+      <dropdown-item [value]="state">{{state}}</dropdown-item>
+    }
     </dropdown>
 </form-field>
 

@@ -4,13 +4,16 @@
     display: flex;
     align-items: center;
     padding-left: 12px;
+    user-select: none;
     cursor: pointer;
+    color: var(--form-field-dropdown-text-color);
 
     &:hover:not(.selected-dropdown-item) {
-        background: #f0f0f0;
+        background: var(--form-field-dropdown-item-hover-color);
     }
 }
 
 .selected-dropdown-item {
-    background: red;
+    background: var(--form-field-dropdown-item-selected-color);
+    color: var(--form-field-dropdown-item-selected-text-color);
 }
