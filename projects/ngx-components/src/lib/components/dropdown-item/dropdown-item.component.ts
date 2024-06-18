@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, booleanAttribute, input, output } from '@angular/core';
+import { Component, ElementRef, input, output, viewChild } from '@angular/core';
 
 @Component({
   selector: 'dropdown-item',
@@ -9,10 +9,10 @@ import { Component, booleanAttribute, input, output } from '@angular/core';
   styleUrl: './dropdown-item.component.scss'
 })
 export class DropdownItemComponent {
-  public disabled = input(false, { transform: booleanAttribute });
   public value = input<any>();
   public onDropdownItemClick = output<DropdownItemComponent>();
   protected isSelected!: boolean;
+  public element = viewChild<ElementRef<HTMLElement>>('element');
 
   protected onClick(): void {
     this.onDropdownItemClick.emit(this);

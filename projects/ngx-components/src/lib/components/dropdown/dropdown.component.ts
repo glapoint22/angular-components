@@ -53,6 +53,8 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
       this.closeList();
     } else {
       this.openList();
+      const dropdownItem: DropdownItemComponent = this.dropdownItems()[this.selectedDropdownItemIndex];
+      this.scrollIntoView(dropdownItem);
     }
   }
 
@@ -100,10 +102,16 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
   private onArrowKeyPress(arrow: number): void {
     const index = this.selectedDropdownItemIndex = this.getSelectedDropdownItemIndex(this.selectedDropdownItemIndex + arrow);
-    const dropdownItem = this.dropdownItems()[index];
+    const dropdownItem: DropdownItemComponent = this.dropdownItems()[index];
 
     this.setSelectedItem(dropdownItem);
+    this.scrollIntoView(dropdownItem);
   }
+
+  private scrollIntoView(item: DropdownItemComponent): void {
+    item.element()?.nativeElement.scrollIntoView({ block: 'nearest' });
+  }
+
 
   public onFocus(): void {
     this.createKeydownListener();

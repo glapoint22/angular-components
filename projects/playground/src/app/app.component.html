@@ -52,8 +52,8 @@
 <br>
 
 <form-field>
-    <form-field-label>Favorite food</form-field-label>
-    <dropdown [(ngModel)]="selectedValue" name="food">
+    <form-field-label>Your state</form-field-label>
+    <dropdown [(ngModel)]="selectedValue">
         <dropdown-item>None</dropdown-item>
     @for (state of states; track state) {
       <dropdown-item [value]="state">{{state}}</dropdown-item>
@@ -61,4 +61,4 @@
     </dropdown>
 </form-field>
 
-<div>Your favorite food is: {{selectedValue}}</div>
+<div>Your state is: {{selectedValue}}</div>
