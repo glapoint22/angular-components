@@ -1,0 +1,11 @@
+@use './utility';
+
+@mixin theme($palettes, $theme-type) {
+    @include utility.color-variables('menu', $theme-type, $palettes, (
+        (variable-name: 'menu-border-color', color-keys: (light: 50, dark: 60), color-map: neutral-variant),
+        (variable-name: 'menu-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),
+        (variable-name: 'menu-item-text-color', color-keys: (light: 10, dark: 90), color-map: neutral),
+        (variable-name: 'menu-item-hover-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'menu-item-hover-text-color', color-keys: (light: 100, dark: 20))
+    ));
+}

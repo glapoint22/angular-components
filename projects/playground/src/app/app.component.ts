@@ -20,6 +20,8 @@ import { DatePickerDirective } from '../../../ngx-components/src/lib/components/
 import { DialogService } from '../../../ngx-components/src/lib/components/dialog.service';
 import { DropdownComponent } from '../../../ngx-components/src/lib/components/dropdown/dropdown.component';
 import { DropdownItemComponent } from '../../../ngx-components/src/lib/components/dropdown-item/dropdown-item.component';
+import { MenuComponent } from '../../../ngx-components/src/lib/components/menu/menu.component';
+import { MenuItemDirective } from '../../../ngx-components/src/lib/components/menu-item.directive';
 
 interface Food {
   value: string;
@@ -50,7 +52,9 @@ interface Food {
     PrefixDirective,
     DatePickerDirective,
     DropdownComponent,
-    DropdownItemComponent
+    DropdownItemComponent,
+    MenuComponent,
+    MenuItemDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
