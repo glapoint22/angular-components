@@ -8,4 +8,8 @@
     caret-color: var(--form-field-caret-color);
     z-index: 1;
     width: 100%;
+
+    &:disabled {
+        color: var(--form-field-input-disabled-text-color);
+    }
 }

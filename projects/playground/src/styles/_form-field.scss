@@ -13,3 +13,9 @@
         }
     }
 }
+
+.form-field-disabled {
+    .icon-button {
+        color: var(--icon-button-disabled-color); 
+    }
+}

@@ -3,7 +3,9 @@
 
 
 @mixin theme($palette, $theme-type) {
+    --icon-button-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 30, dark: 80), color-map: neutral-variant))};
     --icon-button-hover-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.08))};
     --icon-button-active-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.2))};
     --icon-button-focus-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.12))};
+    --icon-button-disabled-color: #{utility.get-color($palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38))};
 }

@@ -89,6 +89,7 @@
     position: relative;
     top: -6px;
     color: var(--form-field-label-color);
+    user-select: none;
 }
 
 .form-field-disabled {
@@ -102,5 +103,9 @@
     
     .form-field-label-container {
         color: var(--form-field-disabled-label-color);
+    }
+
+    .icon-button {
+        color: red 
     }
 }
