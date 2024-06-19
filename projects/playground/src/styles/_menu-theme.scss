@@ -1,6 +1,9 @@
 @use './utility';
+@use 'sass:map';
 
 @mixin theme($palettes, $theme-type) {
+    --menu-item-icon-color: #{utility.get-color(map.get($palettes, primary), $theme-type, (color-keys: (light: 30, dark: 80), color-map: neutral-variant))};
+
     @include utility.color-variables('menu', $theme-type, $palettes, (
         (variable-name: 'menu-border-color', color-keys: (light: 50, dark: 60), color-map: neutral-variant),
         (variable-name: 'menu-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),

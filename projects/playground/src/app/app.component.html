@@ -55,21 +55,47 @@
     <form-field-label>Your state</form-field-label>
     <dropdown [(ngModel)]="selectedValue">
         <dropdown-item>None</dropdown-item>
-    @for (state of states; track state) {
-      <dropdown-item [value]="state">{{state}}</dropdown-item>
-    }
+        @for (state of states; track state) {
+        <dropdown-item [value]="state">{{state}}</dropdown-item>
+        }
     </dropdown>
 </form-field>
 
 <div>Your state is: {{selectedValue}}</div>
 
 <br>
-<menu>
+
+
+<button flatButton [menuTrigger]="myMenu">Menu</button>
+
+
+<menu #myMenu>
     <button menuItem>
-        <icon fill>calendar_month</icon>
+        <icon fill>home</icon>
         <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
     </button>
-    <button menuItem><span>Item 2</span></button>
+
+    <button menuItem>
+        <icon fill>star</icon>
+        Item 2
+    </button>
+
+    <divider />
+
     <button menuItem><span>Item 3</span></button>
-    <button menuItem><span>Item 4</span></button>
+    <button menuItem [menuTrigger]="foo">
+        <span>Item 4</span>
+    </button>
+</menu>
+
+
+<menu #foo>
+    <button menuItem>
+        <icon fill>home</icon>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    
 </menu>

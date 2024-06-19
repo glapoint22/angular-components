@@ -1,6 +1,7 @@
 :host {
     margin: 0;
     padding: 0;
+    display: none;
 }
 
 .menu {
@@ -8,7 +9,6 @@
     flex-direction: column;
     padding: 4px 0;
     width: 100%;
-    max-width: 300px;
     background: var(--menu-background-color);
     border: 1px solid var(--menu-border-color);
     border-radius: 4px;
