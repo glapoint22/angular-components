@@ -1,36 +1,37 @@
 .menu {
     divider {
-        margin: 8px 0;
+        border-top: none;
+        padding: 8px 0;
+
+        &::before {
+            content: ' ';
+            display: block;
+            height: 1px;
+            background: var(--divider-color);
+        }
     }
 
     &:has(.menu-item icon) {
         .menu-item:not(:has(icon)) *:not(svg) {
-            padding-left: 32px;
+            padding-left: 24px;
         }
     }
 }
 
 
 .menu-item {
-    display: flex;
-    height: 30px;
     outline: none;
     border: none;
-    align-items: center;
-    border-radius: 4px;
-    margin: 0 4px;
     cursor: pointer;
     background: transparent;
     color: var(--menu-item-text-color);
-    padding: 0 16px;
 
-    &:hover {
-        background: var(--menu-item-hover-background-color);
-        color: var(--menu-item-hover-text-color);
-
-        icon {
-            color: var(--menu-item-hover-text-color);
-        }
+    &>div {
+        display: flex;
+        height: 30px;
+        align-items: center;
+        border-radius: 4px;
+        padding: 0 16px;
     }
 
     icon {
@@ -49,4 +50,16 @@
     fill: currentColor;
     margin-left: auto;
     margin-right: -10px;
+}
+
+.selected-menu-item {
+    div {
+        color: var(--menu-item-hover-text-color);
+
+        icon {
+            color: var(--menu-item-hover-text-color);
+        }
+
+        background: var(--menu-item-hover-background-color);
+    }
 }
