@@ -3,14 +3,3 @@
     padding: 0;
     display: none;
 }
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    padding: 4px 0;
-    width: 100%;
-    background: var(--menu-background-color);
-    outline: 1px solid var(--menu-border-color);
-    border-radius: 4px;
-    box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.14);
-}

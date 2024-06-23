@@ -1,4 +1,13 @@
 .menu {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    width: 100%;
+    background: var(--menu-background-color);
+    outline: 1px solid var(--menu-border-color);
+    border-radius: 4px;
+    box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.14);
+
     divider {
         border-top: none;
         padding: 8px 0;
@@ -22,7 +31,6 @@
 .menu-item {
     outline: none;
     border: none;
-    cursor: pointer;
     background: transparent;
     color: var(--menu-item-text-color);
 
@@ -42,6 +50,14 @@
     [suffix] {
         margin-left: auto;
     }
+
+    &:disabled {
+        color: var(--menu-item-disabled-text-color);
+
+        icon {
+            color: var(--menu-item-disabled-icon-color);
+        }
+    }
 }
 
 .submenu-icon {
@@ -52,7 +68,9 @@
     margin-right: -10px;
 }
 
-.selected-menu-item {
+.selected-menu-item:not(:disabled) {
+    cursor: pointer;
+
     div {
         color: var(--menu-item-hover-text-color);
 

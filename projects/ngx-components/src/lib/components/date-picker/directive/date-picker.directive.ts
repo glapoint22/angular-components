@@ -140,4 +140,8 @@ export class DatePickerDirective implements ControlValueAccessor {
   public registerOnTouched(fn: any): void { 
     this.onTouched = fn;
   }
+
+  ngOnDestroy(): void { 
+    this.overlayRef.dispose();
+  }
 }

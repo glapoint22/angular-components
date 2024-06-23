@@ -1,6 +1,6 @@
 <button strokedButton style="float: right; margin: 10px;" (click)="onClick()">{{buttonLabel}}</button>
 
-<!-- <icon fill>star</icon>
+<icon fill>star</icon>
 <br>
 <br>
 
@@ -63,14 +63,15 @@
 
 <div>Your state is: {{selectedValue}}</div>
 
-<br> -->
+<br>
 
 
-<button #myButton flatButton (click)="myMenu.open(myButton)">Menu</button>
+<button #myButton flatButton
+    (click)="myMenu.isOpen? myMenu.close(): myMenu.open(myButton)">Menu</button>
 
 
 <menu #myMenu>
-    <button menuItem>
+    <button menuItem disabled>
         <icon fill>home</icon>
         <span>Item 1</span>
         <span suffix>Ctrl+N</span>
@@ -121,8 +122,5 @@
         <span>Item 2</span>
     </button>
 
-    <divider />
-
     <button menuItem><span>Item 3</span></button>
-    
 </menu>

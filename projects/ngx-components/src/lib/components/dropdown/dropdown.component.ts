@@ -172,4 +172,8 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   registerOnTouched(fn: any): void { }
 
   setDisabledState?(isDisabled: boolean): void { }
+
+  ngOnDestroy(): void {
+    this.overlayRef.dispose();
+  }
 }

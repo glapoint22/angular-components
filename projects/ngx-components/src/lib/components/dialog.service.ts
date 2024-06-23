@@ -31,4 +31,8 @@ export class DialogService {
   public close(): void {
     this.overlayRef.detach();
   }
+
+  ngOnDestroy(): void {
+    this.overlayRef.dispose();
+  }
 }

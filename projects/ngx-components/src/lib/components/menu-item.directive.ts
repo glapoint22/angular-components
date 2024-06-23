@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, inject, input, output } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, inject, input, output } from '@angular/core';
 import { MenuComponent } from './menu/menu.component';
 
 @Directive({
@@ -7,21 +7,24 @@ import { MenuComponent } from './menu/menu.component';
 })
 export class MenuItemDirective {
   public submenu = input<MenuComponent>();
-  public onMouseEnter = output<void>();
-  private el: ElementRef<HTMLButtonElement> = inject(ElementRef<HTMLButtonElement>);
+  public onClick = output<void>();
+  public element: ElementRef<HTMLButtonElement> = inject(ElementRef<HTMLButtonElement>);
   private renderer: Renderer2 = inject(Renderer2);
 
 
   public ngOnInit(): void {
-    this.renderer.addClass(this.el.nativeElement, 'menu-item');
-    this.renderer.listen(this.el.nativeElement, 'mouseenter', () => this.onMouseEnter.emit());
+    this.renderer.addClass(this.element.nativeElement, 'menu-item');
 
     if (this.submenu()) {
       this.createArrowIcon();
     }
-    
+
+    this.setContent();
+  }
+
+  private setContent(): void {
     // Access the native element
-    const nativeElement = this.el.nativeElement;
+    const nativeElement = this.element.nativeElement;
 
     // Create the content div element
     const contentDiv = this.renderer.createElement('div');
@@ -35,20 +38,14 @@ export class MenuItemDirective {
     this.renderer.appendChild(nativeElement, contentDiv);
   }
 
-
-  public showSubmenu() {
-    this.submenu()?.openAsSubmenu(this.el.nativeElement);
-  }
-
-
-
-
   public setSelected(selected: boolean): void {
     if (selected) {
-      this.renderer.addClass(this.el.nativeElement, 'selected-menu-item');
+      this.renderer.addClass(this.element.nativeElement, 'selected-menu-item');
     } else {
-      this.renderer.removeClass(this.el.nativeElement, 'selected-menu-item');
+      this.renderer.removeClass(this.element.nativeElement, 'selected-menu-item');
     }
+
+    this.element.nativeElement.focus();
   }
 
 
@@ -68,6 +65,11 @@ export class MenuItemDirective {
     this.renderer.appendChild(svg, polygon);
 
     // append the svg element to the host element
-    this.renderer.appendChild(this.el.nativeElement, svg);
+    this.renderer.appendChild(this.element.nativeElement, svg);
+  }
+
+  @HostListener('click')
+  private onClickHandler(): void {
+    if (!this.submenu()) this.onClick.emit();
   }
 }
