@@ -20,6 +20,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private overlayRef!: OverlayRef;
   private viewContainerRef = inject(ViewContainerRef);
   private menuTemplate = viewChild<TemplateRef<any>>('menuTemplate');
+  private menuElement = viewChild<ElementRef<HTMLElement>>('menu');
   private menuItems = contentChildren(MenuItemDirective);
   private dividers = contentChildren(DividerComponent, { read: ElementRef<HTMLElement> });
   private selectedMenuItem!: MenuItemDirective;
@@ -30,17 +31,21 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private removeEscKeyListener!: () => void;
   private removeArrowsListener!: () => void;
   private removeEnterListener!: () => void;
+  private removeMouseDownListener!: () => void;
   private parent!: MenuComponent | null;
+  private timeoutId!: any;
 
 
   public ngAfterContentInit(): void {
-    this.menuItems().forEach((menuItem) => {
+    this.menuItems().forEach((menuItem: MenuItemDirective) => {
       menuItem.submenu()?.setParent(this);
       menuItem.onClick.subscribe(() => {
-        this.closeParent();
+        this.getParentMenu().close();
       });
     });
   }
+
+
 
 
   public open(element: HTMLElement): void {
@@ -116,17 +121,21 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   public close(): void {
     this.overlayRef.detach();
     this.removeListeners();
-    this.closeSubmenus();
     this.isOpen = false;
+    this.setDirty(false);
+    this.selectedMenuItem?.setSelected(false);
+    this.menuItems().forEach((menuItem) => {
+      clearInterval(menuItem.submenu()?.timeoutId);
+      if (menuItem.submenu()?.isOpen) menuItem.submenu()?.close();
+    });
   }
 
 
 
-  private closeParent(): void {
-    this.close();
-    this.parent?.closeParent();
-  }
 
+  private getParentMenu(): MenuComponent {
+    return this.parent ? this.parent.getParentMenu() : this;
+  }
 
 
 
@@ -139,10 +148,13 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
   private createOverlay(positionStrategy: FlexibleConnectedPositionStrategy): void {
-    this.overlayRef = this.overlay.create({ positionStrategy, width: '100%', maxWidth: '280px' });
+    this.overlayRef = this.overlay.create({ positionStrategy });
 
     const portal = new TemplatePortal(this.menuTemplate()!, this.viewContainerRef);
     this.overlayRef.attach(portal);
+    setTimeout(() => {
+     this.renderer.setStyle(this.menuElement()?.nativeElement, 'display', 'flex'); 
+    });
   }
 
 
@@ -160,7 +172,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     this.dividers().forEach((divider) => {
       this.removeDividersListener = this.renderer.listen(divider.nativeElement, 'mouseenter', () => {
-        this.closeSubmenus();
+        const submenu = this.selectedMenuItem?.submenu();
+
+        this.delaySubmenuAction(submenu, () => submenu?.close());
         this.selectedMenuItem?.setSelected(false);
       });
     });
@@ -176,6 +190,10 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       if (this.isSubmenuOpen()) return;
       this.handleArrowKeys(event);
     });
+
+    if (!this.parent) {
+      this.removeMouseDownListener = this.renderer.listen(window, 'mousedown', () => this.close());
+    }
   }
 
 
@@ -183,7 +201,9 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     const submenuFirstItem = submenu.getNextMenuItem(-1, 1);
 
     submenu.openSubmenu(this.selectedMenuItem!);
-    submenu.selectMenuItem(submenuFirstItem);
+
+    if (submenuFirstItem)
+      submenu.selectMenuItem(submenuFirstItem);
   }
 
   private removeListeners(): void {
@@ -192,6 +212,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     if (this.removeEscKeyListener) this.removeEscKeyListener();
     if (this.removeArrowsListener) this.removeArrowsListener();
     if (this.removeEnterListener) this.removeEnterListener();
+    if (this.removeMouseDownListener) this.removeMouseDownListener();
   }
 
 
@@ -208,14 +229,16 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       // Arrow Down
       case 'ArrowDown':
         const menuItemDown = this.getNextMenuItem(index, 1);
-        this.selectMenuItem(menuItemDown);
+        if (menuItemDown)
+          this.selectMenuItem(menuItemDown);
         break;
 
       // Arrow Up
       case 'ArrowUp':
         if (index === -1) index = this.menuItems().length;
         const menuItemUp = this.getNextMenuItem(index, -1);
-        this.selectMenuItem(menuItemUp);
+        if (menuItemUp)
+          this.selectMenuItem(menuItemUp);
         break;
 
       // Arrow Right
@@ -228,7 +251,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       // Arrow Left
       case 'ArrowLeft':
         if (this.parent && this.parent.selectedMenuItem) {
-          this.parent.closeSubmenus();
+          this.parent.selectedMenuItem.submenu()?.close();
           this.parent.selectMenuItem(this.parent.selectedMenuItem);
         }
         break;
@@ -237,13 +260,22 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     event.preventDefault();
   }
 
-  private getNextMenuItem(index: number, direction: number): MenuItemDirective {
+  private getNextMenuItem(currentIndex: number, direction: number): MenuItemDirective | null {
     const itemCount = this.menuItems().length;
-    let nextIndex = index;
+    let nextIndex = currentIndex;
+    let isFound = false;
 
-    do {
+    for (let i = 0; i < itemCount; i++) {
       nextIndex = (nextIndex + direction + itemCount) % itemCount;
-    } while (this.menuItems()[nextIndex].element.nativeElement.disabled);
+      if (!this.menuItems()[nextIndex].element.nativeElement.disabled) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) {
+      return null;
+    }
 
     return this.menuItems()[nextIndex];
   }
@@ -253,45 +285,35 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     this.isDirty = value;
   }
 
-  private closeSubmenus(): void {
-    // this.selectedMenuItem?.setSelected(false);
-
-    if (this.selectedMenuItem?.submenu()?.isOpen) {
-      this.selectedMenuItem.submenu()?.setDirty(false);
-      this.selectedMenuItem.submenu()?.selectedMenuItem?.setSelected(false);
-      this.selectedMenuItem.submenu()?.close();
-    }
-
-    // this.selectedMenuItem = null;
-  }
-
-
   private onMenuItemMouseEnter(menuItem: MenuItemDirective): void {
-    // if (menuItem === this.selectedMenuItem) {
-    //   menuItem.submenu()?.setDirty(false);
-    //   return;
-    // }
+    const submenu = this.selectedMenuItem?.submenu();
 
-
-    if (!menuItem.submenu()?.isOpen) {
-      this.closeSubmenus();
-    } else {
-      menuItem.submenu()?.setDirty(false);
-    }
+    this.delaySubmenuAction(submenu, () => submenu?.close());
+    menuItem.submenu()?.setDirty(false);
 
     this.selectMenuItem(menuItem);
     this.setDirty(true);
 
 
-    if (!menuItem.element.nativeElement.disabled && !menuItem.submenu()?.isOpen)
+    this.delaySubmenuAction(menuItem.submenu(), () => {
+      if (menuItem.submenu()?.isOpen || menuItem.element.nativeElement.disabled) return;
       menuItem.submenu()?.openSubmenu(menuItem);
+    });
+  }
+
+  private delaySubmenuAction(submenu: MenuComponent | undefined, callback: () => void): void {
+    if (!submenu) return;
+    const submenuDelay: number = 600;
+
+    clearTimeout(submenu.timeoutId);
+
+    submenu.timeoutId = setTimeout(() => {
+      callback();
+    }, submenuDelay);
   }
 
 
   private selectMenuItem(menuItem: MenuItemDirective): void {
-    // this.closeSubmenus();
-    // this.setDirty(true);
-
     this.selectedMenuItem?.setSelected(false);
     menuItem.setSelected(true);
     this.selectedMenuItem = menuItem;
@@ -299,11 +321,11 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
   protected onMenuMouseLeave(): void {
-
-
     setTimeout(() => {
       if (!this.selectedMenuItem?.submenu()?.isDirty) {
-        this.closeSubmenus();
+        const submenu = this.selectedMenuItem?.submenu();
+
+        this.delaySubmenuAction(submenu, () => submenu?.close());
         this.selectedMenuItem?.setSelected(false);
       }
     });

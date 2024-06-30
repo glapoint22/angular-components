@@ -1,5 +1,5 @@
 <ng-template #menuTemplate>
-    <div class="menu" [class]="Color.getColorClass(color(), 'menu')" (mouseleave)="onMenuMouseLeave()">
+    <div #menu class="menu" [class]="Color.getColorClass(color(), 'menu')" (mouseleave)="onMenuMouseLeave()">
         <ng-content />
     </div>
 </ng-template>

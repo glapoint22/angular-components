@@ -1,5 +1,5 @@
 .menu {
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 4px 0;
     width: 100%;
@@ -48,7 +48,8 @@
     }
 
     [suffix] {
-        margin-left: auto;
+        width: 185px;
+        text-align: right;
     }
 
     &:disabled {

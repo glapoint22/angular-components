@@ -17,6 +17,7 @@ export class MenuItemDirective {
 
     if (this.submenu()) {
       this.createArrowIcon();
+      this.renderer.setStyle(this.element.nativeElement, 'min-width', '200px');
     }
 
     this.setContent();
@@ -69,7 +70,12 @@ export class MenuItemDirective {
   }
 
   @HostListener('click')
-  private onClickHandler(): void {
+  protected onClickHandler(): void {
     if (!this.submenu()) this.onClick.emit();
+  }
+
+  @HostListener('mousedown', ['$event'])
+  protected onMouseDownHandler(event: MouseEvent): void {
+    event.stopPropagation();
   }
 }
