@@ -23,15 +23,16 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private menuElement = viewChild<ElementRef<HTMLElement>>('menu');
   private menuItems = contentChildren(MenuItemDirective);
   private dividers = contentChildren(DividerComponent, { read: ElementRef<HTMLElement> });
-  private selectedMenuItem!: MenuItemDirective;
+  private selectedMenuItem!: MenuItemDirective | undefined;
   private isDirty!: boolean;
   private renderer: Renderer2 = inject(Renderer2);
-  private removeDividersListener!: () => void;
+  private removeMouseEnterDividerListener!: () => void;
   private removeMenuItemsListener!: () => void;
   private removeEscKeyListener!: () => void;
   private removeArrowsListener!: () => void;
   private removeEnterListener!: () => void;
   private removeMouseDownListener!: () => void;
+  private removeMouseDownDividerListener!: () => void;
   private parent!: MenuComponent | null;
   private timeoutId!: any;
 
@@ -119,7 +120,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
   public close(): void {
-    this.overlayRef.detach();
+    this.overlayRef?.detach();
     this.removeListeners();
     this.isOpen = false;
     this.setDirty(false);
@@ -128,6 +129,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       clearInterval(menuItem.submenu()?.timeoutId);
       if (menuItem.submenu()?.isOpen) menuItem.submenu()?.close();
     });
+    this.selectedMenuItem = undefined;
   }
 
 
@@ -153,7 +155,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     const portal = new TemplatePortal(this.menuTemplate()!, this.viewContainerRef);
     this.overlayRef.attach(portal);
     setTimeout(() => {
-     this.renderer.setStyle(this.menuElement()?.nativeElement, 'display', 'flex'); 
+      this.renderer.setStyle(this.menuElement()?.nativeElement, 'pointer-events', 'all');
     });
   }
 
@@ -171,12 +173,14 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     });
 
     this.dividers().forEach((divider) => {
-      this.removeDividersListener = this.renderer.listen(divider.nativeElement, 'mouseenter', () => {
+      this.removeMouseEnterDividerListener = this.renderer.listen(divider.nativeElement, 'mouseenter', () => {
         const submenu = this.selectedMenuItem?.submenu();
 
         this.delaySubmenuAction(submenu, () => submenu?.close());
         this.selectedMenuItem?.setSelected(false);
       });
+
+      this.removeMouseDownDividerListener = this.renderer.listen(divider.nativeElement, 'mousedown', (event: MouseEvent) => event.stopPropagation());
     });
 
     this.removeEscKeyListener = this.renderer.listen(window, 'keydown.esc', () => {
@@ -208,11 +212,12 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
   private removeListeners(): void {
     if (this.removeMenuItemsListener) this.removeMenuItemsListener();
-    if (this.removeDividersListener) this.removeDividersListener();
+    if (this.removeMouseEnterDividerListener) this.removeMouseEnterDividerListener();
     if (this.removeEscKeyListener) this.removeEscKeyListener();
     if (this.removeArrowsListener) this.removeArrowsListener();
     if (this.removeEnterListener) this.removeEnterListener();
     if (this.removeMouseDownListener) this.removeMouseDownListener();
+    if (this.removeMouseDownDividerListener) this.removeMouseDownDividerListener();
   }
 
 
