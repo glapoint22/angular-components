@@ -22,6 +22,8 @@ import { DropdownComponent } from '../../../ngx-components/src/lib/components/dr
 import { DropdownItemComponent } from '../../../ngx-components/src/lib/components/dropdown-item/dropdown-item.component';
 import { MenuComponent } from '../../../ngx-components/src/lib/components/menu/menu.component';
 import { MenuItemDirective } from '../../../ngx-components/src/lib/components/menu-item.directive';
+import { MenuBarComponent } from '../../../ngx-components/src/lib/components/menu-bar/menu-bar.component';
+import { MenuBarItemDirective } from '../../../ngx-components/src/lib/components/menu-bar-item.directive';
 
 interface Food {
   value: string;
@@ -54,7 +56,9 @@ interface Food {
     DropdownComponent,
     DropdownItemComponent,
     MenuComponent,
-    MenuItemDirective
+    MenuItemDirective,
+    MenuBarComponent,
+    MenuBarItemDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
