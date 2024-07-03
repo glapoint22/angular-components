@@ -26,23 +26,23 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private selectedMenuItem!: MenuItemDirective | undefined;
   private isDirty!: boolean;
   private renderer: Renderer2 = inject(Renderer2);
-  private removeMouseEnterDividerListener!: () => void;
-  private removeMenuItemsListener!: () => void;
   private removeEscKeyListener!: () => void;
   private removeArrowsListener!: () => void;
-  private removeEnterListener!: () => void;
   private removeMouseDownListener!: () => void;
-  private removeMouseDownDividerListener!: () => void;
+  private removeMouseEnterDividerListeners: Array<() => void> = [];
+  private removeMouseDownDividerListeners: Array<() => void> = [];
   private parent!: MenuComponent | null;
   private timeoutId!: any;
+
+
 
 
   public ngAfterContentInit(): void {
     this.menuItems().forEach((menuItem: MenuItemDirective) => {
       menuItem.submenu()?.setParent(this);
-      menuItem.onClick.subscribe(() => {
-        this.getParentMenu().close();
-      });
+      menuItem.onClick.subscribe(() => this.getParentMenu().close());
+      menuItem.onMouseEnter.subscribe(() => this.onMenuItemMouseEnter(menuItem));
+      menuItem.onKeyEnter.subscribe((event: KeyboardEvent) => this.onMenuItemKeyEnter(menuItem, event));
     });
   }
 
@@ -70,6 +70,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
 
+
   public openAt(x: number, y: number): void {
     const positions: ConnectedPosition[] = [
       {
@@ -82,6 +83,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     this.openMenu({ x, y }, positions);
   }
+
+
 
 
   private openSubmenu(menuItem: MenuItemDirective): void {
@@ -104,6 +107,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     this.openMenu(menuItem.element.nativeElement, positions);
   }
+
+
 
 
   private openMenu(origin: FlexibleConnectedPositionStrategyOrigin, positions: ConnectedPosition[]): void {
@@ -141,10 +146,10 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
 
+
   private setParent(parent: MenuComponent): void {
     this.parent = parent;
   }
-
 
 
 
@@ -161,28 +166,24 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
 
+
   private createListeners(): void {
-    this.menuItems().forEach((menuItem) => {
-      this.removeMenuItemsListener = this.renderer.listen(menuItem.element.nativeElement, 'mouseenter', () => this.onMenuItemMouseEnter(menuItem));
-      this.removeEnterListener = this.renderer.listen(menuItem.element.nativeElement, 'keydown.enter', (event: KeyboardEvent) => {
-        if (!menuItem.submenu() || menuItem.submenu()?.isOpen) return;
-
-        this.selectFirstSubmenuItem(menuItem.submenu()!);
-        event.preventDefault();
-      });
-    });
-
+    // Dividers
     this.dividers().forEach((divider) => {
-      this.removeMouseEnterDividerListener = this.renderer.listen(divider.nativeElement, 'mouseenter', () => {
+      const mouseEnterDividerListener = this.renderer.listen(divider.nativeElement, 'mouseenter', () => {
         const submenu = this.selectedMenuItem?.submenu();
 
         this.delaySubmenuAction(submenu, () => submenu?.close());
         this.selectedMenuItem?.setSelected(false);
       });
 
-      this.removeMouseDownDividerListener = this.renderer.listen(divider.nativeElement, 'mousedown', (event: MouseEvent) => event.stopPropagation());
+      this.removeMouseEnterDividerListeners.push(mouseEnterDividerListener);
+
+      const mouseDownDividerListener = this.renderer.listen(divider.nativeElement, 'mousedown', (event: MouseEvent) => event.stopPropagation());
+      this.removeMouseDownDividerListeners.push(mouseDownDividerListener);
     });
 
+    // Esc key
     this.removeEscKeyListener = this.renderer.listen(window, 'keydown.esc', () => {
       if (!this.isSubmenuOpen()) {
         this.selectedMenuItem?.setSelected(false);
@@ -190,15 +191,34 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       }
     });
 
+    // Arrow keys
     this.removeArrowsListener = this.renderer.listen(window, 'keydown', (event: KeyboardEvent) => {
       if (this.isSubmenuOpen()) return;
       this.handleArrowKeys(event);
     });
 
+    // Mouse down
     if (!this.parent) {
       this.removeMouseDownListener = this.renderer.listen(window, 'mousedown', () => this.close());
     }
   }
+
+
+
+
+  private removeListeners(): void {
+    if (this.removeEscKeyListener) this.removeEscKeyListener();
+    if (this.removeArrowsListener) this.removeArrowsListener();
+    if (this.removeMouseDownListener) this.removeMouseDownListener();
+
+    this.removeMouseEnterDividerListeners.forEach((removeListener) => removeListener());
+    this.removeMouseEnterDividerListeners = [];
+
+    this.removeMouseDownDividerListeners.forEach((removeListener) => removeListener());
+    this.removeMouseDownDividerListeners = [];
+  }
+
+
 
 
   private selectFirstSubmenuItem(submenu: MenuComponent): void {
@@ -207,23 +227,22 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     submenu.openSubmenu(this.selectedMenuItem!);
 
     if (submenuFirstItem)
-      submenu.selectMenuItem(submenuFirstItem);
+      submenu.setMenuItemSelected(submenuFirstItem);
   }
 
-  private removeListeners(): void {
-    if (this.removeMenuItemsListener) this.removeMenuItemsListener();
-    if (this.removeMouseEnterDividerListener) this.removeMouseEnterDividerListener();
-    if (this.removeEscKeyListener) this.removeEscKeyListener();
-    if (this.removeArrowsListener) this.removeArrowsListener();
-    if (this.removeEnterListener) this.removeEnterListener();
-    if (this.removeMouseDownListener) this.removeMouseDownListener();
-    if (this.removeMouseDownDividerListener) this.removeMouseDownDividerListener();
-  }
+
+
+
+
+
 
 
   private isSubmenuOpen(): boolean {
     return this.menuItems().some((menuItem) => menuItem.submenu()?.isOpen);
   }
+
+
+
 
   private handleArrowKeys(event: KeyboardEvent): void {
     if (!event.key.startsWith('Arrow')) return;
@@ -235,7 +254,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       case 'ArrowDown':
         const menuItemDown = this.getNextMenuItem(index, 1);
         if (menuItemDown)
-          this.selectMenuItem(menuItemDown);
+          this.setMenuItemSelected(menuItemDown);
         break;
 
       // Arrow Up
@@ -243,7 +262,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
         if (index === -1) index = this.menuItems().length;
         const menuItemUp = this.getNextMenuItem(index, -1);
         if (menuItemUp)
-          this.selectMenuItem(menuItemUp);
+          this.setMenuItemSelected(menuItemUp);
         break;
 
       // Arrow Right
@@ -257,13 +276,16 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       case 'ArrowLeft':
         if (this.parent && this.parent.selectedMenuItem) {
           this.parent.selectedMenuItem.submenu()?.close();
-          this.parent.selectMenuItem(this.parent.selectedMenuItem);
+          this.parent.setMenuItemSelected(this.parent.selectedMenuItem);
         }
         break;
     }
 
     event.preventDefault();
   }
+
+
+
 
   private getNextMenuItem(currentIndex: number, direction: number): MenuItemDirective | null {
     const itemCount = this.menuItems().length;
@@ -286,9 +308,14 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   }
 
 
+
+
   private setDirty(value: boolean): void {
     this.isDirty = value;
   }
+
+
+
 
   private onMenuItemMouseEnter(menuItem: MenuItemDirective): void {
     const submenu = this.selectedMenuItem?.submenu();
@@ -296,7 +323,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     this.delaySubmenuAction(submenu, () => submenu?.close());
     menuItem.submenu()?.setDirty(false);
 
-    this.selectMenuItem(menuItem);
+    this.setMenuItemSelected(menuItem);
     this.setDirty(true);
 
 
@@ -305,6 +332,19 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       menuItem.submenu()?.openSubmenu(menuItem);
     });
   }
+
+
+
+
+  private onMenuItemKeyEnter(menuItem: MenuItemDirective, event: KeyboardEvent): void {
+    if (!menuItem.submenu() || menuItem.submenu()?.isOpen) return;
+
+    event.preventDefault();
+    this.selectFirstSubmenuItem(menuItem.submenu()!);
+  }
+
+
+
 
   private delaySubmenuAction(submenu: MenuComponent | undefined, callback: () => void): void {
     if (!submenu) return;
@@ -318,11 +358,37 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   }
 
 
-  private selectMenuItem(menuItem: MenuItemDirective): void {
+
+
+  private setMenuItemSelected(menuItem: MenuItemDirective): void {
     this.selectedMenuItem?.setSelected(false);
     menuItem.setSelected(true);
     this.selectedMenuItem = menuItem;
   }
+
+
+
+
+  protected onMenuMouseEnter(): void {
+    clearTimeout(this.timeoutId);
+    this.selectParentMenuItem();
+  }
+
+
+
+
+  private selectParentMenuItem(): void {
+    if (this.parent) {
+      for (let menuItem of this.parent.menuItems()) {
+        if (menuItem.submenu()?.isOpen) {
+          this.parent.setMenuItemSelected(menuItem);
+          break;
+        }
+      }
+    }
+  }
+
+
 
 
   protected onMenuMouseLeave(): void {
@@ -335,6 +401,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       }
     });
   }
+
+
 
 
   public ngOnDestroy(): void {

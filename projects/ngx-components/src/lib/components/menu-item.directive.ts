@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Renderer2, inject, input, output } from '@angular/core';
+import { Directive, ElementRef, Host, HostListener, Renderer2, inject, input, output } from '@angular/core';
 import { MenuComponent } from './menu/menu.component';
 
 @Directive({
@@ -8,6 +8,8 @@ import { MenuComponent } from './menu/menu.component';
 export class MenuItemDirective {
   public submenu = input<MenuComponent>();
   public onClick = output<void>();
+  public onMouseEnter = output<void>();
+  public onKeyEnter = output<KeyboardEvent>();
   public element: ElementRef<HTMLButtonElement> = inject(ElementRef<HTMLButtonElement>);
   private renderer: Renderer2 = inject(Renderer2);
 
@@ -77,5 +79,16 @@ export class MenuItemDirective {
   @HostListener('mousedown', ['$event'])
   protected onMouseDownHandler(event: MouseEvent): void {
     event.stopPropagation();
+  }
+
+  @HostListener('mouseenter')
+  protected onMouseEnterHandler(): void {
+    this.onMouseEnter.emit();
+  }
+
+  @HostListener('keydown.enter', ['$event'])
+  protected onKeyEnterHandler(event: KeyboardEvent): void {
+    // event.preventDefault();
+    this.onKeyEnter.emit(event);
   }
 }
