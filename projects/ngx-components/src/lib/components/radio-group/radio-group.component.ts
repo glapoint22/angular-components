@@ -21,20 +21,19 @@ export class RadioGroupComponent implements ControlValueAccessor {
   public color = input<ColorType>();
   public disabled: boolean = false;
   public name: string = this.generateName();
-  public value: any;
   private radioButtons = contentChildren(RadioButtonComponent);
-  public onChanges!: (value: any) => void;
+  public onChange!: (value: any) => void;
 
 
   public writeValue(value: any): void {
     const radioButton = this.radioButtons().find(x => x.value() === value);
 
-    this.value = value;
-    radioButton?.checked.set(true);
+    if (radioButton)
+      radioButton.checked = true;
   }
 
   public registerOnChange(fn: any): void {
-    this.onChanges = fn;
+    this.onChange = fn;
   }
 
   public registerOnTouched(fn: any): void { }

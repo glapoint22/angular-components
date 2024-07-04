@@ -1,18 +1,16 @@
-<div>
-    <label class="checkbox custom-input-color" [ngClass]="Color.getColorClass(color(), 'custom-input')"
-        [attr.disabled]="disabled()">
+<label class="checkbox custom-input-color" [ngClass]="Color.getColorClass(color(), 'custom-input')"
+    [attr.disabled]="disabled()">
 
-        <!-- Input -->
-        <input #input type="checkbox" name="checkbox" [disabled]="disabled()" [checked]="checked()"
-            (change)="onChange(input.checked)" (focus)="hasFocus = true" (blur)="hasFocus = false">
+    <!-- Input -->
+    <input #input type="checkbox" name="checkbox" [disabled]="disabled()" [checked]="checked"
+        (change)="onChange(input.checked)" (focus)="hasFocus = true" (blur)="hasFocus = false">
 
-        <!-- Checkmark -->
-        <span class="checkmark custom-input-background" [class]="Color.getColorClass(color(), 'checkbox')"
-            [ngClass]="{'custom-input-unselected-focus': hasFocus && !checked(), 'custom-input-selected-focus': hasFocus && checked()}"></span>
+    <!-- Checkmark -->
+    <span class="checkmark custom-input-background" [class]="Color.getColorClass(color(), 'checkbox')"
+        [ngClass]="{'custom-input-unselected-focus': hasFocus && !checked, 'custom-input-selected-focus': hasFocus && checked}"></span>
 
-        <!-- Text -->
-        <span class="custom-input-text">
-            <ng-content></ng-content>
-        </span>
-    </label>
-</div>
+    <!-- Text -->
+    <span class="custom-input-text">
+        <ng-content></ng-content>
+    </span>
+</label>

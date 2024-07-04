@@ -18,26 +18,15 @@ import { Color } from '../../models/color';
 })
 export class CheckboxComponent extends CustomInput implements ControlValueAccessor {
   protected Color = Color;
-  private onChanges!: (value: any) => void;
+  protected onChange!: (value: boolean) => void;
 
-  writeValue(value: any): void {
-    this.checked.set(value);
+  writeValue(checked: boolean): void {
+    this.checked = checked;
   }
 
   registerOnChange(fn: any): void {
-    this.onChanges = fn;
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void { }
-
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
-  }
-
-  protected override onChange(checked: boolean): void {
-    super.onChange(checked);
-
-    this.onChanges(this.checked());
-  }
 }

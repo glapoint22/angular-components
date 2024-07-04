@@ -224,15 +224,12 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private selectFirstSubmenuItem(submenu: MenuComponent): void {
     const submenuFirstItem = submenu.getNextMenuItem(-1, 1);
 
-    submenu.openSubmenu(this.selectedMenuItem!);
+    if (this.selectedMenuItem)
+      submenu.openSubmenu(this.selectedMenuItem);
 
     if (submenuFirstItem)
       submenu.setMenuItemSelected(submenuFirstItem);
   }
-
-
-
-
 
 
 

@@ -21,10 +21,4 @@ export class RadioButtonComponent extends CustomInput {
   protected radioGroup: RadioGroupComponent = inject(RadioGroupComponent);
   public value = input<any>();
   protected Color = Color;
-
-  protected override onChange(checked: boolean) {
-    super.onChange(checked);
-
-    this.radioGroup.onChanges(this.value());
-  }
 }
