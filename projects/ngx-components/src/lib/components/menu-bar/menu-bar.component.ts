@@ -19,7 +19,10 @@ export class MenuBarComponent implements OnInit {
   public ngOnInit(): void {
     this.menuTriggers().forEach((menuTrigger: MenuTriggerDirective, index: number) => {
       menuTrigger.onMouseDown.subscribe(() => this.toggleMenu(menuTrigger));
-      menuTrigger.onMenuClose.subscribe(() => this.setActive(false));
+      menuTrigger.onMenuClose.subscribe(() => {
+        this.setActive(false);
+        this.setCurrentActiveMenuTrigger();
+      });
       menuTrigger.onMouseEnter.subscribe(() => this.closeOpenMenu(menuTrigger));
       menuTrigger.onMenuRightArrowDown.subscribe(() => this.selectNextMenuTrigger(index, 1));
       menuTrigger.onMenuLeftArrowDown.subscribe(() => this.selectNextMenuTrigger(index, -1));
@@ -52,7 +55,7 @@ export class MenuBarComponent implements OnInit {
 
 
   private openMenu(menuTrigger: MenuTriggerDirective): void {
-    this.currentActiveMenuTrigger = menuTrigger;
+    this.setCurrentActiveMenuTrigger(menuTrigger);
     menuTrigger.openMenu();
     this.setActive(true);
   }
@@ -61,7 +64,7 @@ export class MenuBarComponent implements OnInit {
 
 
   private closeMenu(menuTrigger: MenuTriggerDirective): void {
-    this.currentActiveMenuTrigger = undefined;
+    this.setCurrentActiveMenuTrigger();
     menuTrigger.closeMenu();
     this.setActive(false);
   }
@@ -81,5 +84,18 @@ export class MenuBarComponent implements OnInit {
 
   private setActive(active: boolean): void {
     this.isActive = active;
+  }
+
+
+
+
+  private setCurrentActiveMenuTrigger(menuTrigger?: MenuTriggerDirective) {
+    if (menuTrigger) {
+      this.currentActiveMenuTrigger = menuTrigger;
+      menuTrigger.setActive(true);
+    } else {
+      this.currentActiveMenuTrigger?.setActive(false);
+      this.currentActiveMenuTrigger = undefined;
+    }
   }
 }

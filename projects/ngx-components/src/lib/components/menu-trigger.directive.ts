@@ -42,6 +42,17 @@ export class MenuTriggerDirective {
 
 
 
+  public setActive(active: boolean): void {
+    if (active) {
+      this.renderer.addClass(this.el.nativeElement, 'activated-menu-bar-item');
+    } else {
+      this.renderer.removeClass(this.el.nativeElement, 'activated-menu-bar-item');
+    }
+  }
+
+
+
+
   @HostListener('mousedown', ['$event'])
   public handleMouseDown(event: MouseEvent): void {
     this.onMouseDown.emit();
