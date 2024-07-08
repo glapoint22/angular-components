@@ -63,13 +63,17 @@
 
 <div>Your state is: {{selectedValue}}</div>
 
-<br> -->
+<br>
 
 
 <button #myButton flatButton
-    (click)="myMenu.isOpen? myMenu.close(): myMenu.open(myButton)">Menu</button>
+    (click)="myMenu.isOpen? myMenu.close(): myMenu.open(myButton)">Menu</button> -->
     
-
+<menu-bar>
+    <button [menuTrigger]="myMenu">File</button>
+    <button [menuTrigger]="myMenu2">Edit</button>
+    <button [menuTrigger]="myMenu3">Selection</button>
+</menu-bar>
 
 <menu #myMenu>
     <button menuItem disabled>
@@ -126,3 +130,123 @@
     <button menuItem><span>Item 3</span></button>
 </menu>
 
+
+
+
+
+<menu #myMenu2>
+    <button menuItem disabled>
+        <icon fill>home</icon>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    <button menuItem>
+        <icon fill>star</icon>
+        Item 2
+    </button>
+
+    <divider />
+
+    <button menuItem><span>Item 3</span></button>
+    <button menuItem [submenu]="submenuA">
+        <span>Item 4</span>
+    </button>
+</menu>
+
+
+<menu #submenuA>
+    <button menuItem>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    <button menuItem>
+        <span>Item 2</span>
+    </button>
+
+    <divider />
+
+    <button menuItem><span>Item 3</span></button>
+    <button menuItem [submenu]="submenu2B">
+        <span>Item 4</span>
+    </button>
+</menu>
+
+
+<menu #submenu2B>
+    <button menuItem>
+        <icon fill>home</icon>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    <button menuItem>
+        <icon fill>star</icon>
+        <span>Item 2</span>
+    </button>
+
+    <button menuItem><span>Item 3</span></button>
+</menu>
+
+
+
+
+
+
+
+
+<menu #myMenu3>
+    <button menuItem disabled>
+        <icon fill>home</icon>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    <button menuItem>
+        <icon fill>star</icon>
+        Item 2
+    </button>
+
+    <divider />
+
+    <button menuItem><span>Item 3</span></button>
+    <button menuItem [submenu]="submenuC">
+        <span>Item 4</span>
+    </button>
+</menu>
+
+
+<menu #submenuC>
+    <button menuItem>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    <button menuItem>
+        <span>Item 2</span>
+    </button>
+
+    <divider />
+
+    <button menuItem><span>Item 3</span></button>
+    <button menuItem [submenu]="submenu2C">
+        <span>Item 4</span>
+    </button>
+</menu>
+
+
+<menu #submenu2C>
+    <button menuItem>
+        <icon fill>home</icon>
+        <span>Item 1</span>
+        <span suffix>Ctrl+N</span>
+    </button>
+
+    <button menuItem>
+        <icon fill>star</icon>
+        <span>Item 2</span>
+    </button>
+
+    <button menuItem><span>Item 3</span></button>
+</menu>

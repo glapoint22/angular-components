@@ -1,8 +1,7 @@
-import { Component, forwardRef, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CustomInput } from '../../shared/custom-input';
 import { CommonModule } from '@angular/common';
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '../../models/color';
 
 @Component({
@@ -10,12 +9,7 @@ import { Color } from '../../models/color';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './radio-button.component.html',
-  styleUrl: './radio-button.component.scss',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => RadioButtonComponent),
-    multi: true
-  }]
+  styleUrl: './radio-button.component.scss'
 })
 export class RadioButtonComponent extends CustomInput {
   protected radioGroup: RadioGroupComponent = inject(RadioGroupComponent);

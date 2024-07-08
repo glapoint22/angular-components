@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ElementRef, OnDestroy, Renderer2, TemplateRef, ViewContainerRef, contentChildren, inject, input, viewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnDestroy, Renderer2, TemplateRef, ViewContainerRef, contentChildren, inject, input, output, viewChild } from '@angular/core';
 import { Color, ColorType } from '../../models/color';
 import { ConnectedPosition, FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -14,6 +14,9 @@ import { DividerComponent } from '../divider/divider.component';
 })
 export class MenuComponent implements AfterContentInit, OnDestroy {
   public color = input<ColorType>('primary');
+  public onClose = output<void>();
+  public onRightArrowDown = output<void>();
+  public onLeftArrowDown = output<void>();
   public isOpen: boolean = false;
   protected Color = Color;
   private overlay = inject(Overlay);
@@ -40,7 +43,12 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   public ngAfterContentInit(): void {
     this.menuItems().forEach((menuItem: MenuItemDirective) => {
       menuItem.submenu()?.setParent(this);
-      menuItem.onClick.subscribe(() => this.getParentMenu().close());
+      menuItem.onClick.subscribe(() => {
+        const parentMenu = this.getParentMenu();
+
+        parentMenu.close();
+        parentMenu.onClose.emit();
+      });
       menuItem.onMouseEnter.subscribe(() => this.onMenuItemMouseEnter(menuItem));
       menuItem.onKeyEnter.subscribe((event: KeyboardEvent) => this.onMenuItemKeyEnter(menuItem, event));
     });
@@ -188,6 +196,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       if (!this.isSubmenuOpen()) {
         this.selectedMenuItem?.setSelected(false);
         this.close();
+
+        if (!this.parent) this.onClose.emit();
       }
     });
 
@@ -199,7 +209,10 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
     // Mouse down
     if (!this.parent) {
-      this.removeMouseDownListener = this.renderer.listen(window, 'mousedown', () => this.close());
+      this.removeMouseDownListener = this.renderer.listen(window, 'mousedown', () => {
+        this.close();
+        this.onClose.emit();
+      });
     }
   }
 
@@ -221,14 +234,11 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
 
-  private selectFirstSubmenuItem(submenu: MenuComponent): void {
-    const submenuFirstItem = submenu.getNextMenuItem(-1, 1);
+  public selectFirstMenuItem(): void {
+    const menuFirstItem = this.getNextMenuItem(-1, 1);
 
-    if (this.selectedMenuItem)
-      submenu.openSubmenu(this.selectedMenuItem);
-
-    if (submenuFirstItem)
-      submenu.setMenuItemSelected(submenuFirstItem);
+    if (menuFirstItem)
+      this.setMenuItemSelected(menuFirstItem);
   }
 
 
@@ -265,7 +275,13 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
       // Arrow Right
       case 'ArrowRight':
         if (this.selectedMenuItem?.submenu()) {
-          this.selectFirstSubmenuItem(this.selectedMenuItem.submenu()!);
+          const submenu = this.selectedMenuItem.submenu();
+
+          submenu?.openSubmenu(this.selectedMenuItem);
+          submenu?.selectFirstMenuItem();
+        } else {
+          const parentMenu = this.getParentMenu();
+          parentMenu.onRightArrowDown.emit();
         }
         break;
 
@@ -274,6 +290,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
         if (this.parent && this.parent.selectedMenuItem) {
           this.parent.selectedMenuItem.submenu()?.close();
           this.parent.setMenuItemSelected(this.parent.selectedMenuItem);
+        } else {
+          this.onLeftArrowDown.emit();
         }
         break;
     }
@@ -337,7 +355,8 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
     if (!menuItem.submenu() || menuItem.submenu()?.isOpen) return;
 
     event.preventDefault();
-    this.selectFirstSubmenuItem(menuItem.submenu()!);
+    menuItem.submenu()?.openSubmenu(menuItem);
+    menuItem.submenu()?.selectFirstMenuItem();
   }
 
 
