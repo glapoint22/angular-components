@@ -11,6 +11,7 @@
 @use './calendar-theme' as calendar;
 @use './dialog-theme' as dialog;
 @use './menu-theme' as menu;
+@use './menu-bar-theme' as menu-bar;
 
 @mixin theme($theme) {
     $theme-name: map.get($theme, theme-name);
@@ -30,5 +31,6 @@
         @include calendar.theme($palettes, $theme-type);
         @include dialog.theme($palettes, $theme-type);
         @include menu.theme($palettes, $theme-type);
+        @include menu-bar.theme($palettes, $theme-type);
     }
 }

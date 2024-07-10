@@ -1,5 +1,6 @@
-import { Component, contentChildren, OnInit } from '@angular/core';
+import { Component, contentChildren, ElementRef, inject, input, OnInit, Renderer2 } from '@angular/core';
 import { MenuTriggerDirective } from '../menu-trigger.directive';
+import { Color, ColorType } from '../../models/color';
 
 @Component({
   selector: 'menu-bar',
@@ -9,9 +10,12 @@ import { MenuTriggerDirective } from '../menu-trigger.directive';
   styleUrl: './menu-bar.component.scss'
 })
 export class MenuBarComponent implements OnInit {
+  public color = input<ColorType>();
   private menuTriggers = contentChildren(MenuTriggerDirective);
   private isActive: boolean = false;
   private currentActiveMenuTrigger: MenuTriggerDirective | undefined;
+  private el: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);
+  private renderer: Renderer2 = inject(Renderer2);
 
 
 
@@ -27,6 +31,8 @@ export class MenuBarComponent implements OnInit {
       menuTrigger.onMenuRightArrowDown.subscribe(() => this.selectNextMenuTrigger(index, 1));
       menuTrigger.onMenuLeftArrowDown.subscribe(() => this.selectNextMenuTrigger(index, -1));
     });
+
+    this.renderer.addClass(this.el.nativeElement, Color.getColorClass(this.color(), 'menu-bar'));
   }
 
 
@@ -84,6 +90,13 @@ export class MenuBarComponent implements OnInit {
 
   private setActive(active: boolean): void {
     this.isActive = active;
+
+    if (active) {
+      this.renderer.setAttribute(this.el.nativeElement, 'id', 'activated-menu-bar');
+    }
+    else {
+      this.renderer.removeAttribute(this.el.nativeElement, 'id');
+    }
   }
 
 
